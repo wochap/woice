@@ -1,20 +1,18 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  Project: woice — a minimal, fast audio trimmer for Linux Wayland (Hyprland). Third sibling of wodeo (video trimmer, ~/Sandboxes/sandbox/wodeo) and woge (image editor, ~/Sandboxes/sandbox/projects/woge); same author, same conventions. Alpha software; breaking changes are fine.
+  Stack: Tauri 2 (Rust backend, clap CLI, serde, toml, directories, tokio, thiserror, tracing), React 19 + TypeScript + Vite frontend, Tailwind 4, wodeo's shadcn-style ui/ kit (Radix, cva, clsx, tailwind-merge), zustand for state (woge-style store + history), @phosphor-icons/react, Inter Variable + JetBrains Mono via @fontsource-variable (bundled, never Google Fonts), vitest + @testing-library for frontend tests, cargo test for Rust. npm is the package manager (the Nix flake uses fetchNpmDeps).
+  Media: all decoding, probing and export go through ffmpeg/ffprobe subprocesses (no ffmpeg Rust crate, no sidecar), exactly like wodeo. Playback uses <audio> fed by a local range-serving HTTP preview server (wodeo's preview_server.rs pattern).
+  Packaging: Nix flake modelled on wodeo/flake.nix + wodeo/nix/package.nix (pinned nixpkgs, rustPlatform.buildRustPackage + cargo-tauri.hook + fetchNpmDeps, wrapGAppsHook3, ffmpeg-full + GStreamer on the wrapper paths, GDK_BACKEND=wayland, doCheck=false) plus woge's .desktop file and hicolor icon install. Read those repos for Wayland enforcement, undecorated window, theme-aware reveal, config precedence, atomic output writes, CLI/stdout contract and test patterns before implementing.
+  Design handoff: design/project/woice Boards.dc.html and design/project/WoiceApp.dc.html (Claude Design), tokens in design/project/woice-theme.css. Board 1l holds role tokens and sizes; boards 1a-1m show every screen state; 2a is the app icon. Match it visually; do not copy its DOM. design/project/_ds is the Nocturne design system the boards are built on.
+  Theme: Catppuccin Mocha when the OS prefers dark, Latte when it prefers light, switching live; no in-app toggle.
+  Conventions: shell commands prefixed with rtk (see RTK.md). Keyboard-first; mouse and touchpad first-class. Timecodes are m:ss.mmm in JetBrains Mono. One SHORTCUTS registry drives the KeyBar and the "?" overlay.
+  Document model (shared by all changes): source file is never modified. Document = { in, out, fadeIn, fadeOut, fadeCurve, gainDb, normalize (off | -16 LUFS | -14 LUFS | -1 dBFS peak), declick, export settings }. Undo/redo is a snapshot stack of the JSON document; one drag or one toggle is one step. Viewport (zoom/scroll), playhead and monitor volume are not part of the document.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Keep under 500 words
+  tasks:
+    - Each task must be completable in one focused session and verifiable by a test or by running the app
+    - Include test tasks alongside implementation tasks
