@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-53929d40-05df-499c-bc14-17884e999fc5/styles.css">
+<link rel="stylesheet" href="woice-theme.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="_ds/nocturne-53929d40-05df-499c-bc14-17884e999fc5/_ds_bundle.js"></script>
+</helmet>
+<div ref="{{ rootRef }}" class="ctp-{{ flavour }}" style="position:relative;width:100%;height:100%;display:flex;flex-direction:column;overflow:hidden;background:var(--ctp-base);color:var(--ctp-text);font-family:var(--font-ui);font-weight:500;font-size:13px;line-height:1.35;border-radius:10px">
+
+  <header style="position:relative;flex:none;height:44px;display:flex;align-items:center;gap:12px;padding:0 8px 0 12px;background:var(--ctp-crust);-webkit-app-region:drag">
+    <svg width="18" height="18" viewBox="0 0 16 16" style="flex:none"><path d="M5.5 3H3.5v10h2M10.5 3h2v10h-2" style="fill:none;stroke:var(--ctp-lavender);stroke-width:1.5;stroke-linejoin:round"></path><rect x="6.5" y="6" width="1" height="4" rx=".5" style="fill:var(--ctp-subtext1)"></rect><rect x="8" y="4.5" width="1" height="7" rx=".5" style="fill:var(--ctp-subtext1)"></rect><rect x="9.5" y="6.5" width="1" height="3" rx=".5" style="fill:var(--ctp-subtext1)"></rect></svg>
+    <div style="display:flex;flex-direction:column;min-width:0;max-width:280px;line-height:1.25">
+      <span style="font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.name }}</span>
+      <span style="font-family:var(--font-mono);font-size:10.5px;font-weight:400;color:var(--ctp-subtext0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.dir }}</span>
+    </div>
+    <div style="display:flex;gap:4px;min-width:0;overflow:hidden">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5">
+        <span style="font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:6px;border:1px solid {{ c.bd }};color:{{ c.fg }};white-space:nowrap">{{ c.l }}</span>
+      </sc-for>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:2px;-webkit-app-region:no-drag">
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <button title="Undo (Ctrl+Z)" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1);cursor:pointer" style-hover="background:var(--ctp-surface0);color:var(--ctp-text)"><i class="ph ph-arrow-counter-clockwise" style="font-size:18px"></i></button>
+        <button title="Redo (Ctrl+Shift+Z)" disabled style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1);opacity:.45"><i class="ph ph-arrow-clockwise" style="font-size:18px"></i></button>
+        <span style="width:1px;height:18px;background:var(--ctp-surface1);margin:0 6px"></span>
+        <button class="btn btn-secondary" style="height:30px;padding:0 8px 0 10px;font-size:12.5px;gap:7px;border-color:var(--rule);color:var(--ctp-text)"><i class="ph ph-folder-open" style="font-size:14px"></i>Open<span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0)">Ctrl O</span></button>
+      </sc-if>
+      <sc-if value="{{ compact }}">
+        <button title="Open (Ctrl+O)" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-folder-open" style="font-size:18px"></i></button>
+      </sc-if>
+      <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ true }}">
+        <button title="Toggle sidebar" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:var(--sel-wash);color:var(--ctp-lavender);margin-left:4px"><i class="ph ph-sidebar-simple" style="font-size:18px;transform:scaleX(-1)"></i></button>
+      </sc-if>
+      <button title="Close (Ctrl+Q)" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1);margin-left:2px" style-hover="background:color-mix(in srgb, var(--ctp-red) 16%, transparent);color:var(--ctp-red)"><i class="ph ph-x" style="font-size:18px"></i></button>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+  </header>
+
+  <div style="position:relative;flex:1;min-height:0;display:flex">
+    <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+        <div style="position:relative;flex:1;min-height:0;background:var(--ctp-base);overflow:hidden">
+          <div style="position:absolute;left:0;right:0;top:0;height:24px;background:var(--ctp-mantle)"></div>
+          <canvas ref="{{ rulerRef }}" style="position:absolute;left:0;top:0;width:100%;height:24px;display:block"></canvas>
+          <canvas ref="{{ stageRef }}" style="position:absolute;left:0;top:24px;width:100%;height:calc(100% - 24px);display:block"></canvas>
+
+          <sc-if value="{{ showSel }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;top:24px;bottom:0;left:0;width:{{ dimLW }}%;background:var(--dim);pointer-events:none"></div>
+            <div style="position:absolute;top:24px;bottom:0;left:{{ dimRL }}%;right:0;background:var(--dim);pointer-events:none"></div>
+            <div style="position:absolute;top:24px;bottom:0;left:{{ selL }}%;width:{{ selW }}%;background:linear-gradient(to right,var(--sel-wash),transparent 40px,transparent calc(100% - 40px),var(--sel-wash));pointer-events:none"></div>
+            <div style="position:absolute;top:22px;height:2px;left:{{ selL }}%;width:{{ selW }}%;background:var(--ctp-lavender);box-shadow:0 0 8px var(--sel-glow)"></div>
+
+            <sc-if value="{{ showFi }}">
+              <div style="position:absolute;top:31px;left:{{ fiPct }}%;width:0;z-index:3">
+                <div style="position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--ctp-base);border:1.5px solid var(--ctp-mauve);box-shadow:0 0 8px var(--fade-shade)"></div>
+                <span style="position:absolute;left:10px;top:-7px;font-family:var(--font-mono);font-size:10px;color:var(--ctp-mauve);white-space:nowrap">{{ fiLabel }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ showFo }}">
+              <div style="position:absolute;top:31px;left:{{ foPct }}%;width:0;z-index:3">
+                <div style="position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--ctp-base);border:1.5px solid var(--ctp-mauve);box-shadow:0 0 8px var(--fade-shade)"></div>
+                <span style="position:absolute;right:10px;top:-7px;font-family:var(--font-mono);font-size:10px;color:var(--ctp-mauve);white-space:nowrap">{{ foLabel }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showIn }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;top:24px;bottom:0;left:{{ inPct }}%;width:0;z-index:4">
+                <div style="position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ctp-lavender);box-shadow:0 0 10px 1px var(--sel-glow)"></div>
+                <sc-if value="{{ handleFocus }}">
+                  <div style="position:absolute;top:50%;left:-10px;width:20px;height:56px;margin-top:-28px;border-radius:10px;border:2px solid var(--ctp-lavender);box-shadow:0 0 20px 2px var(--sel-glow)"></div>
+                </sc-if>
+                <div style="position:absolute;top:50%;left:-5px;width:10px;height:44px;margin-top:-22px;border-radius:5px;background:var(--ctp-lavender);box-shadow:0 0 14px var(--sel-glow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span></div>
+                <div style="position:absolute;bottom:10px;left:1px;display:flex;align-items:center;gap:6px;padding:3px 8px 3px 6px;border-radius:0 6px 6px 0;background:var(--flag-bg);border:1px solid var(--ctp-lavender);border-left:0;font-family:var(--font-mono);font-size:10.5px;white-space:nowrap"><span style="color:var(--ctp-lavender);font-weight:600;letter-spacing:.06em">IN</span><span style="color:var(--ctp-text)">{{ inTC }}</span></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ showOut }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;top:24px;bottom:0;left:{{ outPct }}%;width:0;z-index:4">
+                <div style="position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ctp-lavender);box-shadow:0 0 10px 1px var(--sel-glow)"></div>
+                <div style="position:absolute;top:50%;left:-5px;width:10px;height:44px;margin-top:-22px;border-radius:5px;background:var(--ctp-lavender);box-shadow:0 0 14px var(--sel-glow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span></div>
+                <div style="position:absolute;bottom:10px;right:1px;display:flex;align-items:center;gap:6px;padding:3px 6px 3px 8px;border-radius:6px 0 0 6px;background:var(--flag-bg);border:1px solid var(--ctp-lavender);border-right:0;font-family:var(--font-mono);font-size:10.5px;white-space:nowrap"><span style="color:var(--ctp-text)">{{ outTC }}</span><span style="color:var(--ctp-lavender);font-weight:600;letter-spacing:.06em">OUT</span></div>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ showZc }}">
+            <div style="position:absolute;top:24px;bottom:0;left:{{ reqPct }}%;width:0;border-left:1px dashed var(--ctp-subtext0);z-index:3"></div>
+            <div style="position:absolute;top:28px;left:{{ reqPct }}%;transform:translateX(-50%);font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0);background:var(--ctp-base);padding:1px 4px;border-radius:4px;white-space:nowrap;z-index:3">pressed I · {{ reqTC }}</div>
+            <sc-for list="{{ laneCenters }}" as="lc">
+              <div style="position:absolute;left:{{ inPct }}%;top:calc(24px + (100% - 24px) * {{ lc }});width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;border:2px solid var(--zc);background:var(--ctp-base);box-shadow:0 0 10px color-mix(in srgb, var(--zc) 55%, transparent);z-index:5"></div>
+            </sc-for>
+            <div style="position:absolute;top:calc(24px + (100% - 24px) * 0.5);left:{{ inPct }}%;transform:translate(-100%,-50%);margin-left:-14px;display:flex;align-items:center;gap:8px;padding:5px 9px;border-radius:8px;border:1px solid color-mix(in srgb, var(--zc) 60%, transparent);background:var(--ctp-base);box-shadow:var(--shadow-md);white-space:nowrap;z-index:6">
+              <i class="ph ph-magnet" style="font-size:14px;color:var(--zc)"></i>
+              <span style="display:flex;flex-direction:column;line-height:1.3"><span style="font-size:11.5px">Snapped to zero crossing</span><span style="font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext0)">{{ snapDelta }} · L+R · then 5 ms micro-fade</span></span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ handleFocus }}">
+            <div style="position:absolute;top:calc(50% + 12px - 22px);left:{{ inPct }}%;transform:translateY(-100%);margin:-14px 0 0 14px;padding:9px 11px;border-radius:8px;background:var(--ctp-mantle);box-shadow:var(--shadow-md);display:flex;flex-direction:column;gap:7px;z-index:7;white-space:nowrap">
+              <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--ctp-lavender)">IN</span><span style="font-family:var(--font-mono);font-size:16px">{{ inTC }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--ctp-subtext0)">
+                <span style="display:flex;align-items:center;gap:6px"><kbd style="font-family:var(--font-mono);font-size:10px;padding:2px 5px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">Home</kbd>move In to start · 0:00.000</span>
+                <span style="display:flex;align-items:center;gap:6px"><kbd style="font-family:var(--font-mono);font-size:10px;padding:2px 5px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">End</kbd>move In to playhead · {{ phTC }}</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showPh }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;top:0;bottom:0;left:{{ phPct }}%;width:0;z-index:5;pointer-events:none">
+              <div style="position:absolute;top:10px;bottom:0;left:-1px;width:2px;background:var(--playhead)"></div>
+              <div style="position:absolute;top:5px;left:-5px;width:10px;height:10px;transform:rotate(45deg);background:var(--playhead);border-radius:2px"></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ loading }}">
+            <div style="position:absolute;top:24px;bottom:0;left:{{ progPct }}%;width:2px;margin-left:-1px;background:var(--ctp-lavender);box-shadow:0 0 14px 2px var(--sel-glow);z-index:4"></div>
+            <div style="position:absolute;top:32px;left:{{ progPct }}%;margin-left:10px;display:flex;align-items:center;gap:7px;padding:4px 9px;border-radius:8px;background:var(--ctp-mantle);box-shadow:var(--shadow-md);font-family:var(--font-mono);font-size:11px;white-space:nowrap;z-index:5"><i class="ph ph-circle-notch" style="font-size:14px;color:var(--ctp-lavender)"></i>Reading peaks · 58% · 2:08 of 3:42</div>
+          </sc-if>
+        </div>
+
+        <div style="position:relative;flex:none;height:52px;padding:8px 12px;background:var(--ctp-mantle)">
+          <div style="position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+          <div style="position:relative;height:36px;border-radius:6px;background:var(--ctp-base);overflow:hidden">
+            <canvas ref="{{ ovRef }}" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+            <sc-if value="{{ showSel }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;top:0;bottom:0;left:{{ vpL }}%;width:{{ vpW }}%;min-width:6px;border:1px solid var(--ov-viewport);border-radius:6px;background:var(--ov-fill);display:flex;align-items:center;justify-content:space-between;padding:0 2px"><span style="width:2px;height:14px;border-radius:1px;background:var(--ov-viewport)"></span><span style="width:2px;height:14px;border-radius:1px;background:var(--ov-viewport)"></span></div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div style="position:relative;flex:none;height:46px;display:flex;align-items:center;gap:2px;padding:0 10px;background:var(--ctp-mantle)">
+          <div style="position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+          <button title="Play (Space)" style="width:34px;height:30px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--ctp-lavender);background:transparent;color:var(--ctp-lavender);margin-right:4px"><i class="ph ph-play" style="font-size:18px"></i></button>
+          <button title="Play selection (Shift+Space)" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-play-circle" style="font-size:18px"></i></button>
+          <button title="Loop selection (L)" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:var(--sel-wash);color:var(--ctp-lavender)"><i class="ph ph-repeat" style="font-size:18px"></i></button>
+          <span style="width:1px;height:18px;background:var(--ctp-surface1);margin:0 6px"></span>
+          <button title="Jump to In" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-arrow-line-left" style="font-size:18px"></i></button>
+          <button title="Jump to Out" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-arrow-line-right" style="font-size:18px"></i></button>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-left:12px;font-family:var(--font-mono);white-space:nowrap">
+            <span style="font-size:14px">{{ phTC }}</span>
+            <span style="font-size:11px;color:var(--ctp-subtext0)">SEL <span style="color:var(--ctp-lavender)">{{ durTC }}</span></span>
+          </div>
+          <div style="flex:1"></div>
+          <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:8px;color:var(--ctp-subtext1)" title="Monitor volume — playback only, not exported">
+              <i class="ph ph-speaker-high" style="font-size:18px"></i>
+              <div style="position:relative;width:76px;height:14px"><div style="position:absolute;left:0;right:0;top:6px;height:2px;border-radius:1px;background:var(--ctp-surface1)"></div><div style="position:absolute;left:0;width:72%;top:6px;height:2px;border-radius:1px;background:var(--ctp-subtext1)"></div><div style="position:absolute;left:72%;top:2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--ctp-mantle);border:1.5px solid var(--ctp-subtext1)"></div></div>
+              <span style="font-size:10.5px;color:var(--ctp-subtext0)">Monitor</span>
+            </div>
+            <span style="width:1px;height:18px;background:var(--ctp-surface1);margin:0 10px"></span>
+            <div style="display:flex;align-items:center;gap:2px">
+              <button title="Zoom out (Ctrl+−)" style="width:28px;height:28px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-magnifying-glass-minus" style="font-size:18px"></i></button>
+              <span style="min-width:74px;text-align:center;font-family:var(--font-mono);font-size:11.5px;display:flex;flex-direction:column;line-height:1.15"><span>{{ zoomX }}</span><span style="font-size:9.5px;color:var(--ctp-subtext0)">{{ zoomSpan }}</span></span>
+              <button title="Zoom in (Ctrl+=)" style="width:28px;height:28px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-magnifying-glass-plus" style="font-size:18px"></i></button>
+              <button class="btn btn-secondary" style="height:28px;padding:0 9px;font-size:12px;margin-left:6px;border-color:var(--rule);color:var(--ctp-text)">Fit</button>
+              <button class="btn btn-secondary" style="height:28px;padding:0 9px;font-size:12px;margin-left:4px;gap:6px;border-color:var(--rule);color:var(--ctp-text)"><i class="ph ph-arrows-in-line-horizontal" style="font-size:14px"></i>Zoom to selection</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ compact }}">
+            <button title="Fit (Ctrl+0)" style="width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-arrows-out-line-horizontal" style="font-size:18px"></i></button>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEmpty }}">
+      <div style="flex:1;padding:20px;display:flex">
+        <div style="flex:1;border-radius:14px;border:1.5px dashed var(--ctp-surface2);background:radial-gradient(ellipse at 50% 42%, var(--sel-wash), transparent 60%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center">
+          <div style="width:64px;height:64px;border-radius:16px;display:grid;place-items:center;border:1px solid var(--ctp-lavender);color:var(--ctp-lavender);box-shadow:0 0 28px var(--sel-glow)"><i class="ph ph-waveform" style="font-size:30px"></i></div>
+          <div style="font-size:20px;letter-spacing:-.01em">Drop an audio or video file</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ctp-subtext1)">or press <kbd style="font-family:var(--font-mono);font-size:11px;padding:3px 6px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">Ctrl</kbd><kbd style="font-family:var(--font-mono);font-size:11px;padding:3px 6px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">O</kbd>to open one</div>
+          <button class="btn btn-primary" style="margin-top:4px;height:34px;padding:0 14px;font-size:13px;gap:8px"><i class="ph ph-folder-open" style="font-size:14px"></i>Open file…</button>
+          <div style="margin-top:18px;max-width:520px;font-family:var(--font-mono);font-size:11px;font-weight:400;line-height:1.7;color:var(--ctp-overlay1)">mp3 · wav · flac · ogg · opus · m4a · aac · aiff<br>audio track of mp4 · mkv · webm · mov</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isError }}">
+      <div style="flex:1;padding:20px;display:flex">
+        <div style="flex:1;border-radius:14px;border:1.5px dashed var(--ctp-surface1);display:flex;align-items:center;justify-content:center">
+          <div style="width:460px;display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:14px;background:var(--ctp-mantle);box-shadow:var(--shadow-md)">
+            <div style="display:flex;align-items:center;gap:10px"><i class="ph ph-warning-circle" style="font-size:20px;color:var(--ctp-red)"></i><span style="font-size:17px">Can’t read interview_final.m4a</span></div>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:var(--ctp-subtext1);text-wrap:pretty">The file’s index is missing, so there is no audio stream to decode. It may be truncated — still downloading or copying — or saved by an app that crashed.</p>
+            <div style="font-family:var(--font-mono);font-size:11px;font-weight:400;padding:8px 10px;border-radius:8px;background:var(--ctp-crust);color:var(--ctp-subtext0);line-height:1.6">ffprobe: moov atom not found<br>~/Downloads/interview_final.m4a · 18.4 MB</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+              <button class="btn btn-primary" style="height:32px;padding:0 12px;font-size:13px;gap:8px"><i class="ph ph-folder-open" style="font-size:14px"></i>Open another…<span style="font-family:var(--font-mono);font-size:10px;opacity:.8">Ctrl O</span></button>
+              <button class="btn btn-ghost" style="height:32px;padding:0 10px;font-size:13px;gap:6px"><i class="ph ph-copy" style="font-size:14px"></i>Copy details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ compact }}">
+      <div style="position:absolute;inset:0;background:var(--scrim);z-index:7"></div>
+    </sc-if>
+
+    <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ true }}">
+      <aside style="{{ sideStyle }}">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+        <sc-if value="{{ compact }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px 4px 14px"><span style="font-size:13px">Trim &amp; export</span><button style="width:28px;height:28px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--ctp-subtext1)"><i class="ph ph-x" style="font-size:14px"></i></button></div>
+        </sc-if>
+        <div style="flex:1;min-height:0;overflow:hidden;position:relative">
+          <div style="padding:8px 14px 8px;display:flex;flex-direction:column;gap:5px">
+            <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0);margin-bottom:2px">Selection</span>
+            <sc-for list="{{ selRows }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:8px;height:26px">
+                <span style="width:64px;font-size:12px;color:var(--ctp-subtext1)">{{ r.l }}</span>
+                <div style="flex:1;height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;border-radius:8px;background:var(--ctp-surface0);border:1px solid {{ r.bd }};box-shadow:{{ r.sh }};font-family:var(--font-mono);font-size:12.5px"><span>{{ r.v }}</span><span style="font-size:10px;color:var(--ctp-overlay1)">{{ r.u }}</span></div>
+                <div style="display:flex;height:26px;border:1px solid var(--rule);border-radius:8px;overflow:hidden"><button style="width:24px;border:0;background:transparent;color:var(--ctp-subtext1);display:grid;place-items:center"><i class="ph ph-minus" style="font-size:14px"></i></button><span style="width:1px;background:var(--rule)"></span><button style="width:24px;border:0;background:transparent;color:var(--ctp-subtext1);display:grid;place-items:center"><i class="ph ph-plus" style="font-size:14px"></i></button></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="height:1px;margin:0 14px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+
+          <div style="padding:8px 14px 8px;display:flex;flex-direction:column;gap:5px">
+            <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0);margin-bottom:2px">Fades</span>
+            <sc-for list="{{ fadeRows }}" as="r" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:8px;height:26px">
+                <span style="width:64px;font-size:12px;color:var(--ctp-subtext1)">{{ r.l }}</span>
+                <div style="flex:1;height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;border-radius:8px;background:var(--ctp-surface0);border:1px solid var(--rule);font-family:var(--font-mono);font-size:12.5px"><span>{{ r.v }}</span><span style="font-size:10px;color:var(--ctp-overlay1)">ms</span></div>
+                <div style="display:flex;height:26px;border:1px solid var(--rule);border-radius:8px;overflow:hidden"><button style="width:24px;border:0;background:transparent;color:var(--ctp-subtext1);display:grid;place-items:center"><i class="ph ph-minus" style="font-size:14px"></i></button><span style="width:1px;background:var(--rule)"></span><button style="width:24px;border:0;background:transparent;color:var(--ctp-subtext1);display:grid;place-items:center"><i class="ph ph-plus" style="font-size:14px"></i></button></div>
+              </div>
+            </sc-for>
+            <div style="display:flex;height:26px;border:1px solid var(--rule);border-radius:8px;padding:1px;gap:1px">
+              <sc-for list="{{ curveOpts }}" as="o" hint-placeholder-count="3">
+                <sc-if value="{{ o.on }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--ctp-lavender);background:var(--sel-wash);box-shadow:inset 0 0 0 1px var(--ctp-lavender);border-radius:7px"><svg width="14" height="10" viewBox="0 0 14 10"><path d="{{ o.d }}" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round"></path></svg>{{ o.l }}</div></sc-if>
+                <sc-if value="{{ o.off }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--ctp-subtext1);border-radius:7px"><svg width="14" height="10" viewBox="0 0 14 10"><path d="{{ o.d }}" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round"></path></svg>{{ o.l }}</div></sc-if>
+              </sc-for>
+            </div>
+          </div>
+          <div style="height:1px;margin:0 14px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+
+          <div style="padding:8px 14px 8px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Level <span style="font-family:var(--font-mono);letter-spacing:0;text-transform:none;color:var(--ctp-overlay1)">−24…+12 dB</span></span><span style="font-family:var(--font-mono);font-size:12px">Gain <span style="color:var(--ctp-lavender)">{{ gainTxt }}</span></span></div>
+            <div style="position:relative;height:14px">
+              <div style="position:absolute;left:0;right:0;top:6px;height:2px;border-radius:1px;background:var(--ctp-surface1)"></div>
+              <div style="position:absolute;left:66.667%;top:2px;width:1px;height:10px;background:var(--ctp-overlay1)"></div>
+              <div style="position:absolute;left:{{ gainFillL }}%;width:{{ gainFillW }}%;top:6px;height:2px;background:var(--ctp-lavender);box-shadow:0 0 6px var(--sel-glow)"></div>
+              <div style="position:absolute;left:{{ gainPos }}%;top:1px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--ctp-mantle);border:2px solid var(--ctp-lavender);box-shadow:0 0 8px var(--sel-glow)"></div>
+            </div>
+                        <div style="display:flex;align-items:center;gap:8px">
+              <div style="flex:1;display:flex;gap:1.5px;height:5px">
+                <sc-for list="{{ meter }}" as="s" hint-placeholder-count="28"><span style="flex:1;border-radius:1px;background:{{ s }}"></span></sc-for>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0);white-space:nowrap">pk {{ peakTxt }}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:1px">
+              <sc-if value="{{ normOn }}"><span style="position:relative;width:28px;height:16px;border-radius:8px;border:1px solid var(--ctp-lavender);background:var(--sel-wash);flex:none"><span style="position:absolute;right:2px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--ctp-lavender);box-shadow:0 0 8px var(--sel-glow)"></span></span></sc-if>
+              <sc-if value="{{ normOff }}"><span style="position:relative;width:28px;height:16px;border-radius:8px;border:1px solid var(--ctp-overlay0);flex:none"><span style="position:absolute;left:2px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--ctp-overlay1)"></span></span></sc-if>
+              <span style="font-size:12.5px">Normalize</span><div style="flex:1"></div><kbd style="font-family:var(--font-mono);font-size:10px;padding:2px 5px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">N</kbd>
+            </div>
+            <div style="display:flex;height:26px;border:1px solid var(--rule);border-radius:8px;padding:1px;gap:1px;opacity:{{ normOpacity }}">
+              <sc-for list="{{ normOpts }}" as="o" hint-placeholder-count="3">
+                <sc-if value="{{ o.on }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-lavender);background:var(--sel-wash);box-shadow:inset 0 0 0 1px var(--ctp-lavender);border-radius:7px">{{ o.l }}</div></sc-if>
+                <sc-if value="{{ o.off }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext1)">{{ o.l }}</div></sc-if>
+              </sc-for>
+            </div>
+          </div>
+          <div style="height:1px;margin:0 14px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+
+          <div style="padding:8px 14px 8px;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="position:relative;width:28px;height:16px;border-radius:8px;border:1px solid var(--ctp-lavender);background:var(--sel-wash);flex:none"><span style="position:absolute;right:2px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--ctp-lavender);box-shadow:0 0 8px var(--sel-glow)"></span></span>
+              <span style="font-size:12.5px">Auto de-click</span><div style="flex:1"></div><span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Clean cuts</span>
+            </div>
+            <span style="font-size:11.5px;font-weight:400;color:var(--ctp-subtext0);line-height:1.4">Snaps In/Out to the nearest zero crossing and adds a 5 ms micro-fade.</span>
+          </div>
+          <div style="height:1px;margin:0 14px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+
+          <div style="padding:8px 14px 6px;display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Export</span>
+            <div style="display:flex;height:26px;border:1px solid var(--rule);border-radius:8px;padding:1px;gap:1px">
+              <sc-for list="{{ fmtOpts }}" as="o" hint-placeholder-count="6">
+                <sc-if value="{{ o.on }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--ctp-lavender);background:var(--sel-wash);box-shadow:inset 0 0 0 1px var(--ctp-lavender);border-radius:7px">{{ o.l }}</div></sc-if>
+                <sc-if value="{{ o.off }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--ctp-subtext1)">{{ o.l }}</div></sc-if>
+              </sc-for>
+            </div>
+            <div style="display:flex;height:34px;border:1px solid var(--rule);border-radius:8px;padding:1px;gap:1px">
+              <sc-for list="{{ tierOpts }}" as="o" hint-placeholder-count="3">
+                <sc-if value="{{ o.on }}"><div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;font-size:11.5px;color:var(--ctp-lavender);background:var(--sel-wash);box-shadow:inset 0 0 0 1px var(--ctp-lavender);border-radius:7px">{{ o.l }}<span style="font-family:var(--font-mono);font-size:9.5px">{{ o.b }}</span></div></sc-if>
+                <sc-if value="{{ o.off }}"><div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;font-size:11.5px;color:var(--ctp-subtext1)">{{ o.l }}<span style="font-family:var(--font-mono);font-size:9.5px;color:var(--ctp-subtext0)">{{ o.b }}</span></div></sc-if>
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;font-size:12px"><span style="color:var(--ctp-subtext1)">Est. size</span><span style="font-family:var(--font-mono)">{{ t.size }} <span style="color:var(--ctp-subtext0);font-size:10.5px">· {{ t.tierNote }}</span></span></div>
+            <div style="display:flex;align-items:center;gap:6px;height:26px;padding:0 4px 0 8px;border-radius:8px;background:var(--ctp-surface0);border:1px solid var(--rule)"><span style="flex:1;min-width:0;font-family:var(--font-mono);font-size:10.5px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ shortPath }}</span><i class="ph ph-folder-simple" style="font-size:14px;color:var(--ctp-subtext1)"></i></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 8px;border-radius:8px;border:1px solid color-mix(in srgb, var(--ctp-peach) 50%, transparent)"><i class="ph ph-arrows-clockwise" style="font-size:14px;color:var(--ctp-peach);margin-top:1px"></i><span style="display:flex;flex-direction:column;font-size:11.5px;line-height:1.35"><span>{{ t.hintText }}</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0)">{{ t.hintSub }}</span></span></div>
+          </div>
+        <sc-if value="{{ compact }}"><div style="position:absolute;left:0;right:0;bottom:0;height:48px;background:linear-gradient(to bottom,transparent,var(--ctp-mantle));pointer-events:none"></div></sc-if>
+        </div>
+        <div style="flex:none;padding:6px 14px 10px">
+          <button class="btn btn-primary" style="width:100%;height:34px;justify-content:space-between;padding:0 10px 0 12px;font-size:13px;box-shadow:0 0 16px var(--sel-wash)"><span style="display:flex;align-items:center;gap:8px"><i class="ph ph-export" style="font-size:14px"></i>Export</span><kbd style="font-family:var(--font-mono);font-size:10px;padding:2px 5px;border-radius:4px;border:1px solid var(--ctp-lavender);color:var(--ctp-lavender)">Enter</kbd></button>
+        </div>
+      </aside>
+    </sc-if>
+  </div>
+
+  <div style="position:relative;flex:none;height:28px;display:flex;align-items:center;gap:12px;padding:0 12px;background:var(--ctp-crust);overflow:hidden;white-space:nowrap">
+    <div style="position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent)"></div>
+    <sc-if value="{{ handleMode }}">
+      <span style="display:flex;align-items:center;gap:6px;padding:1px 8px;border-radius:6px;border:1px solid var(--ctp-lavender);color:var(--ctp-lavender);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.06em">IN HANDLE</span>
+    </sc-if>
+    <sc-for list="{{ barItems }}" as="b" hint-placeholder-count="8">
+      <span style="display:flex;align-items:center;gap:5px"><span style="display:flex;gap:2px"><sc-for list="{{ b.k }}" as="k"><kbd style="font-family:var(--font-mono);font-size:10px;line-height:1;padding:3px 5px;min-width:16px;text-align:center;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">{{ k }}</kbd></sc-for></span><span style="font-size:11px;color:var(--ctp-subtext0)">{{ b.l }}</span></span>
+    </sc-for>
+    <div style="flex:1;min-width:0"></div>
+    <sc-for list="{{ barRight }}" as="b">
+      <span style="display:flex;align-items:center;gap:5px;flex:none"><span style="display:flex;gap:2px"><sc-for list="{{ b.k }}" as="k"><kbd style="font-family:var(--font-mono);font-size:10px;line-height:1;padding:3px 5px;min-width:16px;text-align:center;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">{{ k }}</kbd></sc-for></span><span style="font-size:11px;color:var(--ctp-subtext0)">{{ b.l }}</span></span>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ showDialog }}">
+    <div style="position:absolute;inset:0;z-index:20;background:var(--scrim);display:grid;place-items:center;border-radius:10px">
+      <sc-if value="{{ isExport }}">
+        <div style="width:440px;border-radius:14px;background:var(--ctp-base);box-shadow:var(--shadow-lg);padding:18px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-size:17px">Exporting</span><span style="font-family:var(--font-mono);font-size:14px;color:var(--ctp-lavender)">62%</span></div>
+          <div style="font-family:var(--font-mono);font-size:11.5px;color:var(--ctp-subtext1);margin-top:-8px">{{ t.outName }}<br><span style="color:var(--ctp-subtext0)">{{ t.outLine }}</span></div>
+          <div style="position:relative;height:4px;border-radius:2px;background:var(--ctp-surface0)"><div style="position:absolute;left:0;top:0;bottom:0;width:62%;border-radius:2px;background:var(--ctp-lavender);box-shadow:0 0 12px var(--sel-glow)"></div></div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:{{ s.fg }}"><i class="ph {{ s.icon }}" style="font-size:14px;color:{{ s.ic }}"></i><span style="flex:1">{{ s.l }}</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">{{ s.r }}</span></div>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">elapsed 0:01.9 · eta 0:01.2</span>
+            <button class="btn btn-secondary" style="height:30px;padding:0 10px;font-size:12.5px;gap:8px;border-color:var(--rule);color:var(--ctp-text)">Cancel<kbd style="font-family:var(--font-mono);font-size:10px;padding:2px 5px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1)">Esc</kbd></button>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isDone }}">
+        <div style="width:440px;border-radius:14px;background:var(--ctp-base);box-shadow:var(--shadow-lg);padding:18px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px"><i class="ph ph-check-circle" style="font-size:20px;color:var(--ctp-green)"></i><span style="font-size:17px">Exported</span><span style="flex:1"></span><span style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">took 0:03.1</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--ctp-mantle);border:1px solid var(--rule)"><i class="ph ph-file-audio" style="font-size:14px;color:var(--ctp-subtext1)"></i><span style="font-family:var(--font-mono);font-size:11px;font-weight:400;line-height:1.5;word-break:break-all">{{ t.path }}</span></div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">{{ t.outSize }} · {{ t.outLine }}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+            <button class="btn btn-ghost" style="height:30px;padding:0 8px;font-size:12.5px;gap:8px;color:var(--ctp-subtext1)">Keep editing<kbd style="font-family:var(--font-mono);font-size:10px;padding:2px 5px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1)">Esc</kbd></button>
+            <span style="flex:1"></span>
+            <button class="btn btn-secondary" style="height:30px;padding:0 12px;font-size:12.5px;border-color:var(--rule);color:var(--ctp-text)">Exit</button>
+            <button class="btn btn-primary" style="height:30px;padding:0 10px 0 12px;font-size:12.5px;gap:8px"><i class="ph ph-folder-open" style="font-size:14px"></i>Reveal<kbd style="font-family:var(--font-mono);font-size:10px;padding:2px 5px;border-radius:4px;border:1px solid var(--ctp-lavender);color:var(--ctp-lavender)">Enter</kbd></button>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isHelp }}">
+        <div style="width:860px;border-radius:14px;background:var(--ctp-base);box-shadow:var(--shadow-lg);padding:20px 22px 18px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:10px"><i class="ph ph-keyboard" style="font-size:18px;color:var(--ctp-lavender)"></i><span style="font-size:17px">Keyboard shortcuts</span><span style="flex:1"></span><span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ctp-subtext0)"><kbd style="font-family:var(--font-mono);font-size:10px;padding:3px 5px;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">Esc</kbd>close</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:28px;row-gap:16px">
+            <sc-for list="{{ helpGroups }}" as="gr" hint-placeholder-count="6">
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0);padding-bottom:4px;background:linear-gradient(to right,var(--rule),transparent) no-repeat bottom/100% 1px;margin-bottom:2px">{{ gr.n }}</span>
+                <sc-for list="{{ gr.items }}" as="it">
+                  <div style="display:flex;align-items:center;gap:10px;min-height:22px"><span style="display:flex;gap:2px;flex:none;min-width:96px"><sc-for list="{{ it.k }}" as="k"><kbd style="font-family:var(--font-mono);font-size:10px;line-height:1;padding:3px 5px;min-width:16px;text-align:center;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">{{ k }}</kbd></sc-for></span><span style="font-size:12px;color:var(--ctp-text)">{{ it.l }}</span></div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:11px;color:var(--ctp-subtext0)">When the In or Out handle is focused (Tab), the arrow keys move the handle instead of the playhead. Shift + wheel scrolls the timeline.</div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+  <div style="position:absolute;inset:0;border-radius:10px;box-shadow:inset 0 0 0 1px var(--ctp-surface0);pointer-events:none;z-index:30"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:800},&quot;flavour&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;mocha&quot;,&quot;latte&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;'auto'|'mocha'|'latte'&quot;},&quot;track&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;music&quot;,&quot;voice&quot;],&quot;default&quot;:&quot;music&quot;,&quot;tsType&quot;:&quot;'music'|'voice'&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;loaded&quot;,&quot;zoomed&quot;,&quot;loading&quot;,&quot;empty&quot;,&quot;error&quot;,&quot;handle&quot;,&quot;export&quot;,&quot;done&quot;,&quot;help&quot;],&quot;default&quot;:&quot;loaded&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;compact&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const TRACKS = {
+  music: { name:'tidewater_master_v3.flac', dir:'~/Music/Masters/Tidewater', chips:['FLAC','44.1 kHz','stereo','24-bit','≈1 020 kbps','4:07.533'],
+    dur:247.533, ch:2, inT:6.4, outT:231.2, fi:4, fo:9.5, curve:'S', ph:61.204, gain:-1.5, peak:-1.6, norm:false, target:'−14 LUFS',
+    fmt:'Source', tier:'Original', tiers:[['Original','≈1020 k'],['High','≈860 k'],['Small','≈610 k']], tierNote:'FLAC 24-bit', size:'≈ 28.7 MB',
+    path:'~/Music/Masters/Tidewater/tidewater_master_v3-trim.flac', hintText:'Gain + fades on → will re-encode', hintSub:'FLAC → FLAC · stays lossless',
+    outName:'tidewater_master_v3-trim.flac', outLine:'FLAC 24-bit · stereo · 3:44.800', outSize:'28.7 MB',
+    steps:[['Decode FLAC','done','0:00.6'],['Apply gain, fades, de-click','active','62%'],['Encode FLAC · write file','pend','']] },
+  voice: { name:'ep117_coldopen.m4a', dir:'~/Podcasts/Low Tide/ep117', chips:['AAC-LC','48 kHz','mono','192 kbps','3:42.180'],
+    dur:222.18, ch:1, inT:2.74, outT:218.115, fi:0.35, fo:1.2, curve:'Linear', ph:47.88, gain:0, peak:-3.1, norm:true, target:'−16 LUFS',
+    fmt:'MP3', tier:'High', tiers:[['Original','192 k'],['High','128 k'],['Small','64 k']], tierNote:'MP3 CBR mono', size:'≈ 3.4 MB',
+    path:'~/Podcasts/Low Tide/ep117/ep117_coldopen-trim.mp3', hintText:'Normalize + fades on → will re-encode', hintSub:'AAC → MP3 128 kbps',
+    outName:'ep117_coldopen-trim.mp3', outLine:'MP3 128 kbps · mono · 3:35.375 · −16.0 LUFS', outSize:'3.4 MB',
+    steps:[['Measure loudness (pass 1 of 2)','done','0:00.9'],['Render + encode MP3','active','62%'],['Write tags & file','pend','']] },
+  broken: { name:'interview_final.m4a', dir:'~/Downloads', chips:[], dur:1, ch:1, inT:0, outT:1, fi:0, fo:0, ph:0 },
+  none: { name:'woice', dir:'No file open', chips:[], dur:1, ch:1, inT:0, outT:1, fi:0, fo:0, ph:0 }
+};
+const KEYS = [
+  ['Playback',['Space'],'Play / pause','Play',1],
+  ['Playback',['Shift','Space'],'Play selection','Play sel.',2],
+  ['Playback',['L'],'Loop selection','Loop',3],
+  ['Navigate',['←','→'],'Nudge ±100 ms','Nudge',2],
+  ['Navigate',['Alt','←','→'],'Fine nudge ±10 ms',null],
+  ['Navigate',['Shift','←','→'],'Coarse nudge ±1 s',null],
+  ['Navigate',['PgUp','PgDn'],'Jump ±10 s',null],
+  ['Navigate',['Home','End'],'File start / end',null],
+  ['Navigate',['0','…','9'],'Jump to tenths of the file',null],
+  ['Trim',['I'],'Set In at playhead','Set In',1],
+  ['Trim',['O'],'Set Out at playhead','Set Out',1],
+  ['Trim',['Tab'],'Cycle focus: playhead → In → Out','Focus handle',2],
+  ['View',['Ctrl','=','−'],'Zoom in / out','Zoom',3],
+  ['View',['Ctrl','0'],'Fit whole file','Fit',4],
+  ['View',['Z'],'Zoom to selection','Zoom sel.',4],
+  ['View',['Ctrl','Wheel'],'Zoom at pointer',null],
+  ['Edit',['Ctrl','Z'],'Undo','Undo',5],
+  ['Edit',['Ctrl','Shift','Z'],'Redo',null],
+  ['Edit',['N'],'Toggle normalize','Normalize',5],
+  ['Actions',['Enter'],'Export','Export',1],
+  ['Actions',['Esc'],'Cancel / close overlay',null],
+  ['Actions',['Ctrl','O'],'Open file',null],
+  ['Actions',['?'],'This reference','Shortcuts',1],
+  ['Actions',['Ctrl','Q'],'Quit',null],
+];
+const HANDLE_KEYS = [[['←','→'],'±100 ms'],[['Alt'],'±10 ms'],[['Shift'],'±1 s'],[['Home'],'In → start'],[['End'],'In → playhead'],[['Tab'],'Next: Out'],[['Enter'],'Confirm'],[['Esc'],'Revert']];
+const EMPTY_KEYS = [[['Ctrl','O'],'Open'],[['?'],'Shortcuts'],[['Ctrl','Q'],'Quit']];
+
+function hash(n){ const x=Math.sin(n*127.1+311.7)*43758.5453; return x-Math.floor(x); }
+function sn(t){ const i=Math.floor(t), f=t-i, u=f*f*(3-2*f); return hash(i)*(1-u)+hash(i+1)*u; }
+const MK=[[0,.12],[5,.25],[19,.32],[21,.55],[68,.58],[71,.84],[108,.82],[111,.6],[148,.58],[151,.4],[168,.45],[171,.9],[223,.92],[226,.55],[238,.35],[247.5,0]];
+function lvl(t){ for(let i=1;i<MK.length;i++){ if(t<=MK[i][0]){ const a=MK[i-1], b=MK[i]; return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0]); } } return 0; }
+function musicEnv(t,ch){
+  if(t<0||t>247.533) return 0;
+  const kick=Math.exp(-(t%0.625)/0.09), snr=Math.exp(-((t+0.3125)%1.25)/0.12);
+  const j=0.55+0.45*Math.pow(hash(Math.floor(t*420)+ch*7919),0.6);
+  return Math.min(1, lvl(t)*(0.5+0.42*kick+0.16*snr)*(0.8+0.35*sn(t*11+ch*91))*j*1.02);
+}
+function voiceEnv(t){
+  if(t<2.62||t>218.5) return 0.012+0.01*hash(Math.floor(t*300));
+  const gate=Math.max(0,Math.min(1,(sn(t*0.55+3)-0.22)/0.08));
+  const syl=Math.pow(Math.abs(Math.sin(Math.PI*t*3.9+2.5*sn(t*1.7))),0.7);
+  const j=0.7+0.3*hash(Math.floor(t*260));
+  return Math.min(1, 0.015+gate*syl*j*0.8*(0.78+0.32*sn(t*0.2+9)));
+}
+function musicSample(t,ch){
+  const u=t-6.4, P=2*Math.PI, L=lvl(t)*(0.9+0.1*Math.sin(P*1.6*u));
+  const s = ch===0
+    ? 0.55*Math.sin(P*110*u)+0.22*Math.sin(P*220*u)+0.16*Math.sin(P*55*u)+0.1*Math.sin(P*330*u)+0.06*Math.sin(P*523.25*u)
+    : 0.5*Math.sin(P*110*u)+0.26*Math.sin(P*164.8*u)+0.14*Math.sin(P*55*u)+0.08*Math.sin(P*440*u);
+  return L*s*1.6;
+}
+const pad=(n,l)=>String(n).padStart(l,'0');
+function tc(s){ const ms=Math.round(Math.abs(s)*1000); const m=Math.floor(ms/60000), sec=Math.floor(ms%60000/1000); return (s<0?'−':'')+m+':'+pad(sec,2)+'.'+pad(ms%1000,3); }
+function tickLabel(s,step){ const ms=Math.round(s*1000), m=Math.floor(ms/60000), sec=Math.floor(ms%60000/1000), f=ms%1000;
+  if(step>=1) return m+':'+pad(sec,2); if(step>=0.1) return m+':'+pad(sec,2)+'.'+Math.floor(f/100); return m+':'+pad(sec,2)+'.'+pad(f,3); }
+function gainCurve(u,c){ if(c==='Linear') return u; if(c==='Exp') return (Math.exp(4*u)-1)/(Math.exp(4)-1); return (1-Math.cos(Math.PI*u))/2; }
+
+class Component extends DCLogic {
+  rootRef = React.createRef(); rulerRef = React.createRef(); stageRef = React.createRef(); ovRef = React.createRef();
+  state = { w: this.props.compact ? 640 : 1280 };
+
+  model(){
+    const st=this.props.state||'loaded';
+    let tk=this.props.track||'music';
+    if(st==='empty') tk='none'; if(st==='error') tk='broken';
+    const t=TRACKS[tk]||TRACKS.music;
+    let v0=0, v1=t.dur, mode='bars';
+    if(st==='zoomed'){ v0=t.inT-0.1; v1=t.inT+0.1; mode='samples'; }
+    if(st==='handle'){ v0=0; v1=24; }
+    const ph = st==='handle' ? 14.205 : t.ph;
+    return { st, tk, t, v0, v1, mode, ph, loading: st==='loading', prog:0.58, empty: st==='empty'||st==='error' };
+  }
+
+  componentDidMount(){
+    this.sched();
+    this.mq=window.matchMedia('(prefers-color-scheme: dark)');
+    this.onMq=()=>this.sched(); this.mq.addEventListener('change',this.onMq);
+    this.ro=new ResizeObserver(()=>this.sched());
+    if(this.rootRef.current) this.ro.observe(this.rootRef.current);
+    if(document.fonts) document.fonts.ready.then(()=>this.sched());
+    this.t1=setTimeout(()=>this.sched(),400); this.t2=setTimeout(()=>this.sched(),1500);
+  }
+  sched(){
+    if(this.raf) return;
+    this.raf=setTimeout(()=>{ this.raf=0; const r=this.rootRef.current;
+      if(r&&r.clientWidth){ const w=Math.round(r.clientWidth/40)*40; if(w!==this.state.w){ this.setState({w}); return; } }
+      this.draw(); },16);
+  }
+  componentDidUpdate(){ this.sched(); }
+  componentWillUnmount(){ this.ro&&this.ro.disconnect(); this.mq&&this.mq.removeEventListener('change',this.onMq); clearTimeout(this.t1); clearTimeout(this.t2); clearTimeout(this.raf); }
+
+  prep(cv){
+    if(!cv||!cv.parentElement) return null; const w=Math.min(3000,cv.parentElement.clientWidth), h=Math.min(2000,cv.clientHeight); if(!w||!h) return null;
+    const d=2; if(cv.width!==w*d) cv.width=w*d; if(cv.height!==h*d) cv.height=h*d;
+    const g=cv.getContext('2d'); g.setTransform(d,0,0,d,0,0); g.clearRect(0,0,w,h); g.globalAlpha=1; return {g,w,h};
+  }
+
+  draw(){
+    const root=this.rootRef.current; if(!root) return;
+    const cs=getComputedStyle(root); const v=n=>cs.getPropertyValue(n).trim()||'#888';
+    const C={ wave:v('--wave-fill'), dim:v('--wave-dim'), peak:v('--wave-peak'), fade:v('--fade-line'), tick:v('--ctp-overlay0'),
+      lbl:v('--ctp-subtext0'), skel:v('--ctp-surface0'), mid:v('--ctp-surface1') };
+    const m=this.model(); if(m.empty) return;
+    this.drawRuler(C,m); this.drawStage(C,m); this.drawOverview(C,m);
+  }
+
+  drawRuler(C,m){
+    const P=this.prep(this.rulerRef.current); if(!P) return; const {g,w,h}=P; const span=m.v1-m.v0;
+    const steps=[.001,.002,.005,.01,.02,.05,.1,.2,.5,1,2,5,10,15,30,60,120];
+    const step=steps.find(s=>s/span*w>=86)||120, minor=step/5;
+    g.font='500 10px "JetBrains Mono", ui-monospace, monospace';
+    for(let q=Math.ceil(m.v0/minor); q*minor<=m.v1+1e-9; q++){
+      const s=q*minor, x=Math.round((s-m.v0)/span*w), major=q%5===0;
+      g.fillStyle=C.tick; g.globalAlpha=major?.9:.5; g.fillRect(x,major?h-9:h-4,1,major?9:4);
+      if(major){ g.globalAlpha=1; g.fillStyle=C.lbl; g.fillText(tickLabel(s,step),x+4,12); }
+    }
+  }
+
+  drawStage(C,m){
+    const P=this.prep(this.stageRef.current); if(!P) return; const {g,w,h}=P; const {t,v0,v1}=m; const span=v1-v0;
+    const X=s=>(s-v0)/span*w, xIn=X(t.inT), xOut=X(t.outT);
+    const lanes=t.ch>2?1:t.ch, laneH=h/lanes, env=m.tk==='voice'?voiceEnv:musicEnv;
+    const lim=m.loading?Math.floor(w*m.prog):Math.ceil(w);
+    for(let i=0;i<lanes;i++){
+      const cy=laneH*(i+.5), A=laneH/2-16;
+      g.globalAlpha=.5; g.fillStyle=C.mid; g.fillRect(0,Math.round(cy),w,1);
+      if(i>0){ g.globalAlpha=.35; g.fillStyle=C.tick; g.fillRect(0,Math.round(laneH*i),w,1); }
+      g.globalAlpha=1;
+      if(m.mode==='samples'){
+        const pts=[]; for(let x=0;x<=w;x+=0.5) pts.push([x, cy-musicSample(v0+x/w*span,i)*A]);
+        const seg=(x0,x1,col)=>{ x0=Math.max(0,x0); x1=Math.min(w,x1); if(x1<=x0) return; g.save(); g.beginPath(); g.rect(x0,0,x1-x0,h); g.clip();
+          g.fillStyle=col; g.globalAlpha=.13; g.beginPath(); g.moveTo(0,cy); pts.forEach(p=>g.lineTo(p[0],p[1])); g.lineTo(w,cy); g.closePath(); g.fill();
+          g.globalAlpha=1; g.strokeStyle=col; g.lineWidth=1.6; g.lineJoin='round'; g.beginPath(); pts.forEach((p,k)=>k?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])); g.stroke(); g.restore(); };
+        seg(0,xIn,C.dim); seg(xIn,xOut,C.wave); seg(xOut,w,C.dim);
+      } else {
+        const n=Math.ceil(w), pk=new Float32Array(n);
+        for(let x=0;x<n;x++){ const a=v0+x/w*span, b=v0+(x+1)/w*span; let mx=0; for(let k=0;k<8;k++){ const e=env(a+(k+.5)/8*(b-a),i); if(e>mx) mx=e; } pk[x]=mx; }
+        const L=Math.min(n,lim);
+        const shape=f=>{ g.beginPath(); g.moveTo(0,cy); for(let x=0;x<L;x++) g.lineTo(x+.5,cy-pk[x]*f*A); g.lineTo(L,cy); for(let x=L-1;x>=0;x--) g.lineTo(x+.5,cy+pk[x]*f*A); g.closePath(); g.fill(); };
+        const seg=(x0,x1,col)=>{ x0=Math.max(0,x0); x1=Math.min(L,x1); if(x1<=x0) return; g.save(); g.beginPath(); g.rect(x0,0,x1-x0,h); g.clip(); g.fillStyle=col; g.globalAlpha=.38; shape(1); g.globalAlpha=.82; shape(.5); g.restore(); };
+        if(m.loading) seg(0,L,C.wave); else { seg(0,xIn,C.dim); seg(xIn,xOut,C.wave); seg(xOut,L,C.dim); }
+        g.fillStyle=C.peak; g.globalAlpha=1; for(let x=0;x<L;x++) if(pk[x]>=0.995){ g.fillRect(x,cy-A-1,1,3); g.fillRect(x,cy+A-2,1,3); }
+        if(m.loading){ g.fillStyle=C.skel; let x=L+8, k=0; while(x<w){ const sw=26+hash(k*3.1+i)*80, sh=A*(0.22+0.5*hash(k*7.7+i*3)); g.beginPath(); if(g.roundRect) g.roundRect(x,cy-sh,Math.min(sw,w-x),sh*2,5); else g.rect(x,cy-sh,Math.min(sw,w-x),sh*2); g.fill(); x+=sw+6; k++; } }
+      }
+    }
+    if(m.loading) return;
+    const top=3, bot=h-3;
+    const fade=(sA,sB,dir)=>{ const xa=Math.max(0,X(sA)), xb=Math.min(w,X(sB)); if(xb<=xa) return; const pts=[];
+      for(let x=xa;x<=xb+0.01;x+=1){ const s=v0+Math.min(x,xb)/w*span; let u=Math.max(0,Math.min(1,(s-sA)/(sB-sA))); const gn=dir>0?gainCurve(u,t.curve):gainCurve(1-u,t.curve); pts.push([Math.min(x,xb), top+(1-gn)*(bot-top)]); }
+      g.beginPath(); g.moveTo(xa,top); pts.forEach(p=>g.lineTo(p[0],p[1])); g.lineTo(xb,top); g.closePath(); g.fillStyle=C.fade; g.globalAlpha=m.mode==='samples'?.08:.2; g.fill();
+      g.globalAlpha=.95; g.strokeStyle=C.fade; g.lineWidth=1.5; g.beginPath(); pts.forEach((p,k)=>k?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])); g.stroke(); g.globalAlpha=1; };
+    if(t.fi>0) fade(t.inT,t.inT+t.fi,1);
+    if(t.fo>0) fade(t.outT-t.fo,t.outT,-1);
+  }
+
+  drawOverview(C,m){
+    const P=this.prep(this.ovRef.current); if(!P) return; const {g,w,h}=P; const {t}=m;
+    const env=m.tk==='voice'?voiceEnv:musicEnv, cy=h/2, A=h/2-4, n=Math.ceil(w), pk=new Float32Array(n);
+    for(let x=0;x<n;x++){ const a=x/w*t.dur, b=(x+1)/w*t.dur; let mx=0; for(let k=0;k<10;k++) for(let c=0;c<t.ch;c++){ const e=env(a+(k+.5)/10*(b-a),c); if(e>mx) mx=e; } pk[x]=mx; }
+    const L=m.loading?Math.floor(w*m.prog):n, xIn=t.inT/t.dur*w, xOut=t.outT/t.dur*w;
+    const shape=()=>{ g.beginPath(); g.moveTo(0,cy); for(let x=0;x<L;x++) g.lineTo(x+.5,cy-pk[x]*A); g.lineTo(L,cy); for(let x=L-1;x>=0;x--) g.lineTo(x+.5,cy+pk[x]*A); g.closePath(); g.fill(); };
+    const seg=(x0,x1,col,al)=>{ x0=Math.max(0,x0); x1=Math.min(L,x1); if(x1<=x0) return; g.save(); g.beginPath(); g.rect(x0,0,x1-x0,h); g.clip(); g.fillStyle=col; g.globalAlpha=al; shape(); g.restore(); };
+    if(m.loading) seg(0,L,C.wave,.8); else { seg(0,xIn,C.dim,.6); seg(xIn,xOut,C.wave,.85); seg(xOut,L,C.dim,.6); }
+    if(m.loading){ g.globalAlpha=1; g.fillStyle=C.skel; g.fillRect(L+4,cy-3,w-L-4,6); }
+  }
+
+  renderVals(){
+    const m=this.model(), {st,t,v0,v1}=m, span=v1-v0;
+    const compact=!!this.props.compact, w=this.state.w;
+    const pct=x=>+(((x-v0)/span)*100).toFixed(3), cl=x=>Math.max(0,Math.min(100,x));
+    const hasFile=!m.empty, loading=m.loading, showSel=hasFile&&!loading;
+    const inP=pct(t.inT), outP=pct(t.outT), phP=pct(m.ph);
+    const maxPr = w>=1360?5 : w>=1240?4 : w>=1000?3 : w>=760?2 : 1;
+    let barItems;
+    if(m.empty) barItems=EMPTY_KEYS.map(([k,l])=>({k,l}));
+    else if(st==='handle') barItems=HANDLE_KEYS.map(([k,l])=>({k,l}));
+    else barItems=KEYS.filter(r=>r[3]&&r[4]<=maxPr).map(r=>({k:r[1],l:r[3]}));
+    let barRight=[]; if(!m.empty&&st!=='handle'){ barRight=barItems.filter(b=>b.l==='Shortcuts'); barItems=barItems.filter(b=>b.l!=='Shortcuts'); } else if(m.empty){ barRight=barItems.filter(b=>b.l==='Shortcuts'); barItems=barItems.filter(b=>b.l!=='Shortcuts'); }
+    const groups=[]; KEYS.forEach(r=>{ let gr=groups.find(x=>x.n===r[0]); if(!gr){ gr={n:r[0],items:[]}; groups.push(gr);} gr.items.push({k:r[1],l:r[2]}); });
+    const isErr=st==='error';
+    let chips=(t.chips||[]).map(l=>({l,bd:'var(--rule)',fg:'var(--ctp-subtext1)'}));
+    if(isErr) chips=[{l:'unreadable',bd:'color-mix(in srgb, var(--ctp-red) 60%, transparent)',fg:'var(--ctp-red)'},{l:'18.4 MB',bd:'var(--rule)',fg:'var(--ctp-subtext1)'}];
+    if(compact) chips=chips.slice(-1);
+    const gain=t.gain||0, gPos=(gain+24)/36*100, zPos=66.667;
+    const peak=t.peak||-6;
+    const meter=Array.from({length:28},(_,i)=>{ const db=-36+(i+1)*(36/28); const lit=db<=peak+0.6; const c=db>-3?'var(--ctp-red)':db>-12?'var(--ctp-yellow)':'var(--ctp-green)'; return lit?c:'var(--ctp-surface0)'; });
+    const opts=(list,on)=>list.map(l=>({l,on:l===on,off:l!==on}));
+    const curveD={Linear:'M1 9L13 1',Exp:'M1 9C8 9 11 6.5 13 1','S-curve':'M1 9C6.5 9 7.5 1 13 1'};
+    const curveName=t.curve==='S'?'S-curve':t.curve;
+    const zoomRatio=t.dur/span;
+    const reqT=t.inT+0.0021;
+    const sideBase='display:flex;flex-direction:column;background:var(--ctp-mantle);';
+    const sideStyle = compact
+      ? sideBase+'position:absolute;top:0;right:0;bottom:0;width:284px;z-index:8;box-shadow:var(--shadow-md)'
+      : sideBase+'position:relative;flex:none;width:300px;opacity:'+(loading?0.45:1);
+    const hf=st==='handle';
+    return {
+      flavour:this.props.flavour||'auto', t, shortPath:t.path?'…/'+t.path.split('/').slice(-2).join('/'):'', chips, compact, wide:!compact&&hasFile,
+      hasFile, isEmpty:st==='empty', isError:isErr, loading, showSel,
+      dimLW:cl(inP), dimRL:cl(outP), selL:cl(inP), selW:cl(outP)-cl(inP), inPct:inP, outPct:outP,
+      showIn:inP>=-2&&inP<=102, showOut:outP>=-2&&outP<=102,
+      fiPct:pct(t.inT+t.fi), foPct:pct(t.outT-t.fo), showFi:t.fi>0&&pct(t.inT+t.fi)<=100&&pct(t.inT+t.fi)-inP>0.4, showFo:t.fo>0&&pct(t.outT-t.fo)>=0&&outP-pct(t.outT-t.fo)>0.4,
+      fiLabel:'fade '+(t.fi>=1?t.fi.toFixed(1)+' s':Math.round(t.fi*1000)+' ms'), foLabel:'fade '+(t.fo>=1?t.fo.toFixed(1)+' s':Math.round(t.fo*1000)+' ms'),
+      inTC:tc(t.inT), outTC:tc(t.outT), durTC:tc(t.outT-t.inT), phTC:tc(m.ph), phPct:phP, showPh:hasFile&&!loading&&phP>=0&&phP<=100,
+      handleFocus:hf, handleMode:hf,
+      showZc:st==='zoomed', reqPct:pct(reqT), reqTC:tc(reqT), snapDelta:'−2.1 ms',
+      laneCenters: t.ch>=2?[0.25,0.75]:[0.5],
+      progPct:58,
+      vpL:+(v0/t.dur*100).toFixed(3), vpW:+(span/t.dur*100).toFixed(3),
+      zoomX: zoomRatio<1.01?'Fit':(zoomRatio>=100?Math.round(zoomRatio).toLocaleString('en-US').replace(/,/g,' '):zoomRatio.toFixed(1))+(zoomRatio<1.01?'':'×'),
+      zoomSpan: span<1?Math.round(span*1000)+' ms window':span<60?Math.round(span)+' s window':tc(span).slice(0,-4)+' window',
+      sideStyle,
+      selRows:[
+        {l:'In',v:tc(t.inT),u:'',bd:hf?'var(--ctp-lavender)':'var(--rule)',sh:hf?'0 0 10px var(--sel-glow)':'none'},
+        {l:'Out',v:tc(t.outT),u:'',bd:'var(--rule)',sh:'none'},
+        {l:'Duration',v:tc(t.outT-t.inT),u:'',bd:'var(--rule)',sh:'none'}],
+      fadeRows:[{l:'Fade in',v:String(Math.round(t.fi*1000))},{l:'Fade out',v:String(Math.round(t.fo*1000))}],
+      curveOpts:['Linear','Exp','S-curve'].map(l=>({l,d:curveD[l],on:l===curveName,off:l!==curveName})),
+      gainTxt:(gain>0?'+':gain<0?'−':'±')+Math.abs(gain).toFixed(1)+' dB',
+      gainPos:gPos, gainFillL:Math.min(gPos,zPos), gainFillW:Math.abs(gPos-zPos),
+      meter, peakTxt:(peak<0?'−':'')+Math.abs(peak).toFixed(1)+' dBFS',
+      normOff:!t.norm, normOn:!!t.norm, normOpacity:t.norm?1:0.5, normOpts:opts(['−16 LUFS','−14 LUFS','−1 dBFS'],t.target),
+      fmtOpts:opts(['Source','MP3','WAV','FLAC','Opus','M4A'],t.fmt),
+      tierOpts:(t.tiers||[]).map(([l,b])=>({l,b,on:l===t.tier,off:l!==t.tier})),
+      barItems, barRight, helpGroups:groups,
+      showDialog:['export','done','help'].includes(st), isExport:st==='export', isDone:st==='done', isHelp:st==='help',
+      steps:(t.steps||[]).map(([l,s,r])=>({l,r,icon:s==='done'?'ph-check-circle':s==='active'?'ph-circle-notch':'ph-circle',ic:s==='done'?'var(--ctp-green)':s==='active'?'var(--ctp-lavender)':'var(--ctp-overlay0)',fg:s==='pend'?'var(--ctp-subtext0)':'var(--ctp-text)'})),
+      rootRef:this.rootRef, rulerRef:this.rulerRef, stageRef:this.stageRef, ovRef:this.ovRef
+    };
+  }
+}
+</script>
+</body>
+</html>

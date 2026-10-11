@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/nocturne-53929d40-05df-499c-bc14-17884e999fc5/styles.css">
+<link rel="stylesheet" href="woice-theme.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="_ds/nocturne-53929d40-05df-499c-bc14-17884e999fc5/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#11111b}
+@media (prefers-color-scheme: light){body{background:#dce0e8}}
+a{color:var(--ctp-lavender)}a:hover{color:var(--ctp-text)}
+.dv-turn{padding:44px 48px 36px;scroll-margin-top:16px;background:var(--ctp-crust);color:var(--ctp-text)}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}
+.dv-tid{font:600 10px var(--font-mono);padding:3px 7px;background:var(--ctp-text);color:var(--ctp-crust);border-radius:4px;text-decoration:none}
+.dv-tname{font:500 15px/1.2 var(--font-ui);color:var(--ctp-text)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px 28px;align-items:flex-start;max-width:2600px}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px var(--font-mono);padding:3px 7px;background:var(--ctp-surface0);color:var(--ctp-text);border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:500 12px/1.3 var(--font-ui);color:var(--ctp-subtext0)}
+.dv-card{max-width:100%;border-radius:10px;box-shadow:var(--shadow-md);overflow:hidden}
+.dv-opt:target .dv-oid{background:var(--ctp-lavender);color:var(--ctp-crust)}
+.dv-next{margin:28px 0 0;font:12px/1.5 var(--font-ui);color:var(--ctp-subtext0)}
+</style>
+</helmet>
+
+<section class="dv-turn ctp-auto" id="t2">
+  <div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">App icon</span></div>
+  <div class="dv-opts">
+    <div class="dv-opt" id="2a">
+      <div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>woice — a waveform trimmed by two bracket handles · large, small and in a launcher row</div>
+      <div class="dv-card" style="width:1320px;display:grid;grid-template-columns:1fr 1fr">
+        <sc-for list="{{ iconPanels }}" as="pn" hint-placeholder-count="2">
+          <div class="ctp-{{ pn.f }}" style="background:var(--ctp-base);padding:28px 30px 26px;display:flex;flex-direction:column;gap:26px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-size:13px">{{ pn.n }} panel</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">{{ pn.hex }}</span></div>
+            <div style="display:flex;align-items:flex-end;gap:26px">
+              <sc-for list="{{ bigSizes }}" as="s" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                  <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 256 256"><defs><linearGradient id="wiT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#313244"></stop><stop offset="1" stop-color="#11111b"></stop></linearGradient><filter id="wiG" x="-60%" y="-30%" width="220%" height="160%"><feGaussianBlur stdDeviation="7"></feGaussianBlur></filter></defs><rect x="8" y="8" width="240" height="240" rx="58" fill="url(#wiT)"></rect><rect x="9" y="9" width="238" height="238" rx="57" fill="none" stroke="#585b70" stroke-opacity=".6" stroke-width="2"></rect><g fill="#585b70"><rect x="42" y="111" width="8" height="34" rx="4"></rect><rect x="56" y="99" width="8" height="58" rx="4"></rect><rect x="192" y="93" width="8" height="70" rx="4"></rect><rect x="206" y="108" width="8" height="40" rx="4"></rect></g><g fill="#bac2de"><rect x="96" y="96" width="8" height="64" rx="4"></rect><rect x="110" y="72" width="8" height="112" rx="4"></rect><rect x="124" y="54" width="8" height="148" rx="4"></rect><rect x="138" y="80" width="8" height="96" rx="4"></rect><rect x="152" y="100" width="8" height="56" rx="4"></rect></g><g filter="url(#wiG)" opacity=".75" fill="none" stroke="#b4befe" stroke-width="12" stroke-linejoin="round"><path d="M90 62H76V194H90"></path><path d="M166 62H180V194H166"></path></g><g fill="none" stroke="#b4befe" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M90 62H76V194H90"></path><path d="M166 62H180V194H166"></path></g></svg>
+                  <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext0)">{{ s }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:22px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="7.5" fill="#1e1e2e" stroke="#585b70" stroke-opacity=".7"></rect><g fill="#bac2de"><rect x="12" y="12" width="2" height="8" rx="1"></rect><rect x="15" y="8.5" width="2" height="15" rx="1"></rect><rect x="18" y="11" width="2" height="10" rx="1"></rect></g><path d="M11 8H8v16h3M21 8h3v16h-3" fill="none" stroke="#b4befe" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"></path></svg><span style="font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext0)">32</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><svg width="24" height="24" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="7.5" fill="#1e1e2e" stroke="#585b70" stroke-opacity=".7"></rect><g fill="#bac2de"><rect x="12" y="12" width="2" height="8" rx="1"></rect><rect x="15" y="8.5" width="2" height="15" rx="1"></rect><rect x="18" y="11" width="2" height="10" rx="1"></rect></g><path d="M11 8H8v16h3M21 8h3v16h-3" fill="none" stroke="#b4befe" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"></path></svg><span style="font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext0)">24</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" rx="3.5" fill="#1e1e2e" shape-rendering="geometricPrecision"></rect><g fill="#b4befe"><rect x="3" y="3" width="2" height="10"></rect><rect x="3" y="3" width="3" height="1.5"></rect><rect x="3" y="11.5" width="3" height="1.5"></rect><rect x="11" y="3" width="2" height="10"></rect><rect x="10" y="3" width="3" height="1.5"></rect><rect x="10" y="11.5" width="3" height="1.5"></rect></g><g fill="#bac2de"><rect x="7" y="6" width="1" height="4"></rect><rect x="8" y="4" width="1" height="8"></rect></g></svg><span style="font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext0)">16</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering:pixelated"><rect x="0" y="0" width="16" height="16" rx="3.5" fill="#1e1e2e" shape-rendering="geometricPrecision"></rect><g fill="#b4befe"><rect x="3" y="3" width="2" height="10"></rect><rect x="3" y="3" width="3" height="1.5"></rect><rect x="3" y="11.5" width="3" height="1.5"></rect><rect x="11" y="3" width="2" height="10"></rect><rect x="10" y="3" width="3" height="1.5"></rect><rect x="10" y="11.5" width="3" height="1.5"></rect></g><g fill="#bac2de"><rect x="7" y="6" width="1" height="4"></rect><rect x="8" y="4" width="1" height="8"></rect></g></svg><span style="font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext0)">16 @ 4×</span></div>
+              <div style="flex:1"></div>
+              <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+                <div style="display:flex;gap:10px;padding:8px;border-radius:14px;background:var(--ctp-mantle);box-shadow:var(--shadow-sm)">
+                  <div style="width:48px;height:48px;border-radius:12px;border:1.5px dashed var(--ctp-surface2);display:grid;place-items:center;font-family:var(--font-mono);font-size:9.5px;color:var(--ctp-subtext0)">wodeo</div>
+                  <div style="width:48px;height:48px;border-radius:12px;border:1.5px dashed var(--ctp-surface2);display:grid;place-items:center;font-family:var(--font-mono);font-size:9.5px;color:var(--ctp-subtext0)">woge</div>
+                  <svg width="48" height="48" viewBox="0 0 256 256"><rect x="8" y="8" width="240" height="240" rx="58" fill="url(#wiT)"></rect><rect x="9" y="9" width="238" height="238" rx="57" fill="none" stroke="#585b70" stroke-opacity=".6" stroke-width="2"></rect><g fill="#585b70"><rect x="42" y="111" width="8" height="34" rx="4"></rect><rect x="56" y="99" width="8" height="58" rx="4"></rect><rect x="192" y="93" width="8" height="70" rx="4"></rect><rect x="206" y="108" width="8" height="40" rx="4"></rect></g><g fill="#bac2de"><rect x="96" y="96" width="8" height="64" rx="4"></rect><rect x="110" y="72" width="8" height="112" rx="4"></rect><rect x="124" y="54" width="8" height="148" rx="4"></rect><rect x="138" y="80" width="8" height="96" rx="4"></rect><rect x="152" y="100" width="8" height="56" rx="4"></rect></g><g fill="none" stroke="#b4befe" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M90 62H76V194H90"></path><path d="M166 62H180V194H166"></path></g></svg>
+                </div>
+                <span style="font-size:11px;color:var(--ctp-subtext0)">family row · sibling icons not supplied</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="max-width:1320px;font-size:12px;line-height:1.55;color:var(--ctp-subtext0)">One dark tile for both panels — the Mocha base→crust tile with a 1px surface2 edge keeps a silhouette on dark docks and stays a crisp dark chip on Latte. Brackets are the In/Out handles (lavender, glowing at ≥48px); the kept bars are subtext1, trimmed tails surface2. Below 32px the outer bars and glow drop and the 16px mark is pixel-snapped to two bracket strokes and two bars.</div>
+    </div>
+  </div>
+  <p class="dv-next">Try next: “drop in the wodeo / woge icons so I can match the tile” · “try a Latte-tile variant of <a class="dv-oid" href="#2a">2a</a>” · “brackets in mauve”</p>
+</section>
+
+<section class="dv-turn ctp-auto" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">woice — desktop audio trimmer · main boards</span></div>
+
+  <div style="max-width:2588px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:28px;margin-bottom:36px;padding:22px 24px;border-radius:14px;background:var(--ctp-base);box-shadow:var(--shadow-sm)">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-lavender)">Context</span>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:var(--ctp-subtext1);text-wrap:pretty">Third sibling to wodeo and woge: same Nocturne structure (outlined actions, 8px radii, fading rules, accent as line + glow) with every colour taken from the Catppuccin role map. The app has no theme toggle; it reads <span style="font-family:var(--font-mono);font-size:12px">prefers-color-scheme</span> and swaps Mocha ⇄ Latte live, waveform canvases included. Boards pin a flavour; this canvas itself follows your OS.</p>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:var(--ctp-subtext1)">Content: <span style="font-family:var(--font-mono);font-size:12px">tidewater_master_v3.flac</span> (stereo music, 4:07.533) and <span style="font-family:var(--font-mono);font-size:12px">ep117_coldopen.m4a</span> (mono podcast voice, 3:42.180).</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-lavender)">Assumptions</span>
+      <sc-for list="{{ assumptionsA }}" as="a" hint-placeholder-count="6"><div style="display:flex;gap:8px;font-size:12.5px;line-height:1.5;color:var(--ctp-subtext1)"><span style="color:var(--ctp-overlay1);font-family:var(--font-mono)">—</span><span style="text-wrap:pretty">{{ a }}</span></div></sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-lavender)">&#8203;</span>
+      <sc-for list="{{ assumptionsB }}" as="a" hint-placeholder-count="6"><div style="display:flex;gap:8px;font-size:12.5px;line-height:1.5;color:var(--ctp-subtext1)"><span style="color:var(--ctp-overlay1);font-family:var(--font-mono)">—</span><span style="text-wrap:pretty">{{ a }}</span></div></sc-for>
+    </div>
+  </div>
+
+  <div class="dv-opts">
+    <sc-for list="{{ boards }}" as="b" hint-placeholder-count="4">
+      <div class="dv-opt" id="{{ b.id }}" data-screen-label="{{ b.id }} {{ b.title }}">
+        <div class="dv-olabel"><a class="dv-oid" href="#{{ b.id }}">{{ b.id }}</a><span style="color:var(--ctp-text)">{{ b.title }}</span>{{ b.note }}</div>
+        <div class="dv-card" style="position:relative;width:{{ b.w }}px;height:{{ b.h }}px">
+          <dc-import name="WoiceApp" flavour="{{ b.f }}" track="{{ b.track }}" state="{{ b.state }}" compact="{{ b.compact }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
+        </div>
+      </div>
+    </sc-for>
+
+    <div class="dv-opt" id="1k" data-screen-label="1k Component sheet">
+      <div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a><span style="color:var(--ctp-text)">Component sheet</span>Mocha and Latte, same markup</div>
+      <div class="dv-card" style="width:1280px;display:grid;grid-template-columns:1fr 1fr">
+        <sc-for list="{{ flavours }}" as="fl" hint-placeholder-count="2">
+          <div class="ctp-{{ fl.f }}" style="background:var(--ctp-base);padding:24px 26px 28px;display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-size:17px">{{ fl.n }}</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">{{ fl.q }}</span></div>
+
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Handles · fade · playhead</span>
+              <div style="position:relative;height:150px;border-radius:8px;background:var(--ctp-base);box-shadow:var(--shadow-sm);overflow:hidden">
+                <div style="position:absolute;inset:0;display:flex;align-items:center;gap:2px;padding:0 6px">
+                  <sc-for list="{{ miniBars }}" as="mb" hint-placeholder-count="40"><span style="flex:1;height:{{ mb.h }}%;border-radius:1px;background:{{ mb.c }};opacity:{{ mb.o }}"></span></sc-for>
+                </div>
+                <div style="position:absolute;top:0;bottom:0;left:0;width:22%;background:var(--dim)"></div>
+                <div style="position:absolute;top:0;bottom:0;left:82%;right:0;background:var(--dim)"></div>
+                <svg style="position:absolute;left:22%;top:0;width:16%;height:100%" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 97 C45 97 55 3 100 3 L100 3 L0 3Z" style="fill:var(--fade-shade)"></path><path d="M0 97 C45 97 55 3 100 3" style="fill:none;stroke:var(--fade-line);stroke-width:1.5" vector-effect="non-scaling-stroke"></path></svg>
+                <div style="position:absolute;top:8px;left:38%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--ctp-base);border:1.5px solid var(--ctp-mauve);box-shadow:0 0 8px var(--fade-shade)"></div>
+                <div style="position:absolute;top:0;bottom:0;left:22%;width:0">
+                  <div style="position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ctp-lavender);box-shadow:0 0 10px 1px var(--sel-glow)"></div>
+                  <div style="position:absolute;top:50%;left:-10px;width:20px;height:56px;margin-top:-28px;border-radius:10px;border:2px solid var(--ctp-lavender);box-shadow:0 0 20px 2px var(--sel-glow)"></div>
+                  <div style="position:absolute;top:50%;left:-5px;width:10px;height:44px;margin-top:-22px;border-radius:5px;background:var(--ctp-lavender);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span></div>
+                  <div style="position:absolute;bottom:8px;left:1px;display:flex;gap:6px;padding:3px 8px 3px 6px;border-radius:0 6px 6px 0;background:var(--flag-bg);border:1px solid var(--ctp-lavender);border-left:0;font-family:var(--font-mono);font-size:10.5px;white-space:nowrap"><span style="color:var(--ctp-lavender);font-weight:600">IN</span>0:02.740</div>
+                </div>
+                <div style="position:absolute;top:0;bottom:0;left:82%;width:0">
+                  <div style="position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ctp-lavender);box-shadow:0 0 10px 1px var(--sel-glow)"></div>
+                  <div style="position:absolute;top:50%;left:-5px;width:10px;height:44px;margin-top:-22px;border-radius:5px;background:var(--ctp-lavender);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span><span style="width:4px;height:1px;background:var(--ctp-crust)"></span></div>
+                  <div style="position:absolute;bottom:8px;right:1px;display:flex;gap:6px;padding:3px 6px 3px 8px;border-radius:6px 0 0 6px;background:var(--flag-bg);border:1px solid var(--ctp-lavender);border-right:0;font-family:var(--font-mono);font-size:10.5px;white-space:nowrap">3:38.115<span style="color:var(--ctp-lavender);font-weight:600">OUT</span></div>
+                </div>
+                <div style="position:absolute;top:0;bottom:0;left:60%;width:0"><div style="position:absolute;top:10px;bottom:0;left:-1px;width:2px;background:var(--playhead)"></div><div style="position:absolute;top:5px;left:-5px;width:10px;height:10px;transform:rotate(45deg);border-radius:2px;background:var(--playhead)"></div></div>
+              </div>
+              <span style="font-size:11px;color:var(--ctp-subtext0)">In shown focused (2px ring + stronger glow). Grip 10×44, hit area 16px wide, full lane height. Fade handle 12px mauve ring.</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Time field + steppers</span>
+                <div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:28px;display:flex;align-items:center;padding:0 8px;border-radius:8px;background:var(--ctp-surface0);border:1px solid var(--rule);font-family:var(--font-mono);font-size:12.5px">0:06.400</div><div style="display:flex;height:28px;border:1px solid var(--rule);border-radius:8px;overflow:hidden"><span style="width:24px;display:grid;place-items:center;color:var(--ctp-subtext1)"><i class="ph ph-minus" style="font-size:14px"></i></span><span style="width:1px;background:var(--rule)"></span><span style="width:24px;display:grid;place-items:center;color:var(--ctp-subtext1)"><i class="ph ph-plus" style="font-size:14px"></i></span></div></div>
+                <div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:28px;display:flex;align-items:center;padding:0 8px;border-radius:8px;background:var(--ctp-surface0);border:1px solid var(--ctp-lavender);box-shadow:0 0 10px var(--sel-glow);font-family:var(--font-mono);font-size:12.5px">0:06.4<span style="border-left:1.5px solid var(--ctp-lavender);height:14px;margin:0 1px"></span>00</div><div style="display:flex;height:28px;border:1px solid var(--rule);border-radius:8px;overflow:hidden"><span style="width:24px;display:grid;place-items:center;color:var(--ctp-subtext1)"><i class="ph ph-minus" style="font-size:14px"></i></span><span style="width:1px;background:var(--rule)"></span><span style="width:24px;display:grid;place-items:center;color:var(--ctp-lavender);background:var(--sel-wash)"><i class="ph ph-plus" style="font-size:14px"></i></span></div></div>
+                <span style="font-size:11px;color:var(--ctp-subtext0)">Steppers nudge 100 ms · Alt 10 ms · Shift 1 s. ↑/↓ inside the field do the same.</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Toggle</span>
+                <div style="display:flex;align-items:center;gap:8px"><span style="position:relative;width:28px;height:16px;border-radius:8px;border:1px solid var(--ctp-lavender);background:var(--sel-wash)"><span style="position:absolute;right:2px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--ctp-lavender);box-shadow:0 0 8px var(--sel-glow)"></span></span><span style="font-size:12.5px">On</span></div>
+                <div style="display:flex;align-items:center;gap:8px"><span style="position:relative;width:28px;height:16px;border-radius:8px;border:1px solid var(--ctp-overlay0)"><span style="position:absolute;left:2px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--ctp-overlay1)"></span></span><span style="font-size:12.5px">Off</span></div>
+                <div style="display:flex;align-items:center;gap:8px;opacity:.45"><span style="position:relative;width:28px;height:16px;border-radius:8px;border:1px solid var(--ctp-overlay0)"><span style="position:absolute;left:2px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--ctp-overlay1)"></span></span><span style="font-size:12.5px">Disabled</span></div>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Segmented</span>
+              <div style="display:flex;height:28px;border:1px solid var(--rule);border-radius:8px;padding:1px;gap:1px">
+                <sc-for list="{{ fmtDemo }}" as="o" hint-placeholder-count="6">
+                  <sc-if value="{{ o.on }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--ctp-lavender);background:var(--sel-wash);box-shadow:inset 0 0 0 1px var(--ctp-lavender);border-radius:7px">{{ o.l }}</div></sc-if>
+                  <sc-if value="{{ o.off }}"><div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--ctp-subtext1)">{{ o.l }}</div></sc-if>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Slider + peak meter</span>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--ctp-subtext1)">Gain</span><span style="font-family:var(--font-mono);color:var(--ctp-lavender)">+3.0 dB</span></div>
+              <div style="position:relative;height:14px"><div style="position:absolute;left:0;right:0;top:6px;height:2px;background:var(--ctp-surface1);border-radius:1px"></div><div style="position:absolute;left:66.667%;top:2px;width:1px;height:10px;background:var(--ctp-overlay1)"></div><div style="position:absolute;left:66.667%;width:8.333%;top:6px;height:2px;background:var(--ctp-lavender);box-shadow:0 0 6px var(--sel-glow)"></div><div style="position:absolute;left:75%;top:1px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--ctp-base);border:2px solid var(--ctp-lavender);box-shadow:0 0 0 4px var(--sel-wash),0 0 8px var(--sel-glow)"></div></div>
+              <div style="display:flex;align-items:center;gap:8px"><div style="flex:1;display:flex;gap:1.5px;height:5px"><sc-for list="{{ meterDemo }}" as="s" hint-placeholder-count="40"><span style="flex:1;border-radius:1px;background:{{ s }}"></span></sc-for></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-red)">pk +0.4 · CLIP</span></div>
+              <span style="font-size:11px;color:var(--ctp-subtext0)">Thumb shown in its drag state. Meter: green to −12, yellow to −3, red above; reads post-gain peak.</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Buttons</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                  <button class="btn btn-primary" style="height:30px;padding:0 10px;font-size:12.5px;gap:7px"><i class="ph ph-export" style="font-size:14px"></i>Export</button>
+                  <button class="btn btn-secondary" style="height:30px;padding:0 10px;font-size:12.5px;gap:7px;border-color:var(--rule);color:var(--ctp-text)"><i class="ph ph-folder-open" style="font-size:14px"></i>Open</button>
+                  <button class="btn btn-ghost" style="height:30px;padding:0 8px;font-size:12.5px">Reveal</button>
+                  <button class="btn btn-primary" disabled style="height:30px;padding:0 10px;font-size:12.5px">Disabled</button>
+                </div>
+                <div style="display:flex;gap:4px">
+                  <span style="width:30px;height:30px;display:grid;place-items:center;border-radius:8px;color:var(--ctp-subtext1)"><i class="ph ph-arrow-counter-clockwise" style="font-size:18px"></i></span>
+                  <span style="width:30px;height:30px;display:grid;place-items:center;border-radius:8px;color:var(--ctp-text);background:var(--ctp-surface0)"><i class="ph ph-play-circle" style="font-size:18px"></i></span>
+                  <span style="width:30px;height:30px;display:grid;place-items:center;border-radius:8px;color:var(--ctp-lavender);background:var(--sel-wash)"><i class="ph ph-repeat" style="font-size:18px"></i></span>
+                  <span style="width:34px;height:30px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--ctp-lavender);color:var(--ctp-lavender)"><i class="ph ph-play" style="font-size:18px"></i></span>
+                  <span style="width:30px;height:30px;display:grid;place-items:center;border-radius:8px;color:var(--ctp-subtext1);outline:2px solid var(--ctp-lavender);outline-offset:2px"><i class="ph ph-arrow-line-left" style="font-size:18px"></i></span>
+                </div>
+                <span style="font-size:11px;color:var(--ctp-subtext0)">Icon buttons: rest · hover · active toggle · primary outline · focus-visible.</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Chips · kbd</span>
+                <div style="display:flex;flex-wrap:wrap;gap:4px">
+                  <sc-for list="{{ chipDemo }}" as="c" hint-placeholder-count="5"><span style="font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:6px;border:1px solid var(--rule);color:var(--ctp-subtext1)">{{ c }}</span></sc-for>
+                  <span style="font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:6px;border:1px solid color-mix(in srgb, var(--ctp-red) 60%, transparent);color:var(--ctp-red)">unreadable</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+                  <sc-for list="{{ kbdDemo }}" as="k" hint-placeholder-count="6"><kbd style="font-family:var(--font-mono);font-size:10px;line-height:1;padding:3px 5px;min-width:16px;text-align:center;border-radius:4px;background:var(--ctp-surface0);color:var(--ctp-subtext1);box-shadow:inset 0 -1px 0 var(--ctp-surface1)">{{ k }}</kbd></sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0)">Export hints</span>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border-radius:8px;border:1px solid color-mix(in srgb, var(--ctp-green) 50%, transparent)"><i class="ph ph-lightning" style="font-size:14px;color:var(--ctp-green);margin-top:1px"></i><span style="display:flex;flex-direction:column;font-size:11.5px;line-height:1.35"><span>Source → lossless stream copy</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0)">no fades · gain · normalize · de-click</span></span></div>
+                <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border-radius:8px;border:1px solid color-mix(in srgb, var(--ctp-peach) 50%, transparent)"><i class="ph ph-arrows-clockwise" style="font-size:14px;color:var(--ctp-peach);margin-top:1px"></i><span style="display:flex;flex-direction:column;font-size:11.5px;line-height:1.35"><span>Fades/gain on → will re-encode</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0)">AAC → AAC 192 kbps</span></span></div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1l" data-screen-label="1l Tokens">
+      <div class="dv-olabel"><a class="dv-oid" href="#1l">1l</a><span style="color:var(--ctp-text)">Tokens</span>Catppuccin role → Mocha → Latte, waveform roles, type and sizes</div>
+      <div class="dv-card ctp-auto" style="width:1280px;background:var(--ctp-base);padding:24px 26px 28px;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:30px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:grid;grid-template-columns:150px 120px 120px minmax(0,1fr);gap:10px;padding:0 0 6px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-subtext0);background:linear-gradient(to right,transparent,var(--rule) 48px,var(--rule) calc(100% - 48px),transparent) no-repeat bottom/100% 1px"><span>Role</span><span>Mocha</span><span>Latte</span><span>Used for</span></div>
+          <sc-for list="{{ tokenRows }}" as="r" hint-placeholder-count="20">
+            <sc-if value="{{ r.head }}"><div style="padding:12px 0 2px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-lavender)">{{ r.role }}</div></sc-if>
+            <sc-if value="{{ r.row }}">
+              <div style="display:grid;grid-template-columns:150px 120px 120px minmax(0,1fr);gap:10px;align-items:center;min-height:26px;font-size:12px;background:linear-gradient(to right,transparent,color-mix(in srgb, var(--ctp-overlay0) 22%, transparent) 48px,color-mix(in srgb, var(--ctp-overlay0) 22%, transparent) calc(100% - 48px),transparent) no-repeat bottom/100% 1px">
+                <span style="display:flex;flex-direction:column;line-height:1.25"><span>{{ r.role }}</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0)">{{ r.ctp }}</span></span>
+                <span style="display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px"><span style="width:16px;height:16px;border-radius:4px;background:{{ r.m }};opacity:{{ r.ma }};box-shadow:inset 0 0 0 1px rgba(127,132,156,.35)"></span>{{ r.m }}</span>
+                <span style="display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px"><span style="width:16px;height:16px;border-radius:4px;background:{{ r.l }};opacity:{{ r.la }};box-shadow:inset 0 0 0 1px rgba(127,132,156,.35)"></span>{{ r.l }}</span>
+                <span style="font-size:11.5px;color:var(--ctp-subtext1);line-height:1.35">{{ r.use }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-lavender)">Type</span>
+            <sc-for list="{{ typeRows }}" as="r" hint-placeholder-count="8">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;min-height:24px;background:linear-gradient(to right,transparent,color-mix(in srgb, var(--ctp-overlay0) 22%, transparent) 48px,color-mix(in srgb, var(--ctp-overlay0) 22%, transparent) calc(100% - 48px),transparent) no-repeat bottom/100% 1px;padding-bottom:4px">
+                <span style="font-family:{{ r.ff }};font-size:{{ r.px }}px;letter-spacing:{{ r.ls }};text-transform:{{ r.tt }};white-space:nowrap">{{ r.sample }}</span>
+                <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--ctp-subtext0);white-space:nowrap">{{ r.spec }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-lavender)">Sizes · 1280 × 800</span>
+            <sc-for list="{{ sizeRows }}" as="r" hint-placeholder-count="12">
+              <div style="display:flex;justify-content:space-between;gap:12px;font-size:12px;min-height:22px;align-items:center"><span style="color:var(--ctp-subtext1)">{{ r.k }}</span><span style="font-family:var(--font-mono);font-size:11px;text-align:right">{{ r.v }}</span></div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ctp-lavender)">Spacing · radii</span>
+            <div style="display:flex;align-items:flex-end;gap:10px">
+              <sc-for list="{{ spaceRows }}" as="s" hint-placeholder-count="6"><div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:{{ s }}px;height:{{ s }}px;background:var(--sel-wash);box-shadow:inset 0 0 0 1px var(--ctp-lavender);border-radius:2px"></span><span style="font-family:var(--font-mono);font-size:10px;color:var(--ctp-subtext0)">{{ s }}</span></div></sc-for>
+            </div>
+            <span style="font-size:11px;color:var(--ctp-subtext0)">Nocturne 0.7× scale (2.8 · 5.6 · 8.4 · 11.2 · 16.8 · 22.4) rounded to whole px in chrome. Radii: 4 kbd · 6 chips/flags · 8 controls · 14 dialogs, drop zone.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1m" data-screen-label="1m Theme check">
+      <div class="dv-olabel"><a class="dv-oid" href="#1m">1m</a><span style="color:var(--ctp-text)">Theme check</span><a class="dv-oid" href="#1a">1a</a> Mocha beside <a class="dv-oid" href="#1b">1b</a> Latte, same size</div>
+      <div style="display:flex;gap:28px">
+        <div style="display:flex;flex-direction:column;gap:8px"><div class="dv-card" style="position:relative;width:1280px;height:800px"><dc-import name="WoiceApp" flavour="mocha" track="music" state="loaded" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import></div><span style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">prefers-color-scheme: dark → Mocha</span></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><div class="dv-card" style="position:relative;width:1280px;height:800px"><dc-import name="WoiceApp" flavour="latte" track="music" state="loaded" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import></div><span style="font-family:var(--font-mono);font-size:11px;color:var(--ctp-subtext0)">prefers-color-scheme: light → Latte</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="dv-next">Try next: “make the waveform two-tone (peak in subtext, RMS in lavender)” · “show <a class="dv-oid" href="#1j">1j</a> with the drawer closed” · “add a drag state for the Out handle”</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const H = (role,ctp,m,l,use,ma,la)=>({row:true,head:false,role,ctp,m,l,use,ma:ma??1,la:la??ma??1});
+const S = role=>({head:true,row:false,role});
+class Component extends DCLogic {
+  renderVals(){
+    const boards=[
+      ['1a','Main · file loaded','mocha','music','loaded',false,'selection + fades, fit zoom'],
+      ['1b','Main · Latte','latte','music','loaded',false,''],
+      ['1c','Zoomed to 200 ms around In','mocha','music','zoomed',false,'wave cycles + zero-crossing snap'],
+      ['1c-L','Zoomed · Latte','latte','music','zoomed',false,''],
+      ['1d','Loading','mocha','voice','loading',false,'peaks paint left→right, metadata already known'],
+      ['1d-L','Loading · Latte','latte','voice','loading',false,''],
+      ['1e','Empty','mocha','voice','empty',false,'drop zone'],
+      ['1f','Error','mocha','voice','error',false,'corrupt file, recoverable'],
+      ['1g','In handle focused (Tab)','mocha','voice','handle',false,'tooltip + KeyBar in handle mode'],
+      ['1i','Shortcut reference (?)','mocha','voice','help',false,'rendered from the same registry as the KeyBar'],
+      ['1h','Export · in progress','mocha','voice','export',false,'blocking'],
+      ['1h-L','Export · in progress · Latte','latte','voice','export',false,''],
+      ['1h-d','Export · done','mocha','voice','done',false,''],
+      ['1h-L-d','Export · done · Latte','latte','voice','done',false,''],
+      ['1j','Compact 640 × 520','mocha','voice','loaded',true,'sidebar as drawer (open), KeyBar trimmed to priority 1'],
+    ].map(([id,title,f,track,state,compact,note])=>({id,title,f,track,state,compact,note,w:compact?640:1280,h:compact?520:800}));
+    const barsH=[18,26,22,34,30,44,52,40,62,70,58,76,66,84,72,60,78,88,70,64,82,74,56,68,80,62,50,72,66,58,46,54,40,48,36,30,38,26,20,16];
+    const miniBars=barsH.map((h,i)=>{ const x=(i+.5)/barsH.length; const inside=x>0.22&&x<0.82; return {h, c: inside?'var(--wave-fill)':'var(--wave-dim)', o: inside?0.82:0.7}; });
+    const meterDemo=Array.from({length:40},(_,i)=>{ const db=-36+(i+1)*0.9; const c=db>-3?'var(--ctp-red)':db>-12?'var(--ctp-yellow)':'var(--ctp-green)'; return db<=0.4?c:'var(--ctp-surface0)'; });
+    return {
+      boards, miniBars, meterDemo,
+      flavours:[{f:'mocha',n:'Mocha',q:'prefers-color-scheme: dark'},{f:'latte',n:'Latte',q:'prefers-color-scheme: light'}],
+      iconPanels:[{f:'mocha',n:'Dark',hex:'Mocha base #1e1e2e'},{f:'latte',n:'Light',hex:'Latte base #eff1f5'}],
+      bigSizes:[256,128,64,48],
+      fmtDemo:['Source','MP3','WAV','FLAC','Opus','M4A'].map(l=>({l,on:l==='Opus',off:l!=='Opus'})),
+      chipDemo:['AAC-LC','48 kHz','mono','192 kbps','3:42.180'],
+      kbdDemo:['Space','Shift','Ctrl','Enter','Esc','←','→','I','O','?'],
+      assumptionsA:[
+        'No wodeo/woge files were attached, so the skeleton (header · stage · overview · transport · sidebar · KeyBar), handle anatomy and KeyBar handle mode are rebuilt from the brief. Point me at them and I’ll align details.',
+        'Wave fill is lavender — the accent as a line, never as a flood: peak layer 38%, RMS core 82%. Outside In/Out it drops to overlay0 under a wash (crust in Mocha, base in Latte), so Latte dims by fading, not by going grey.',
+        'Fades use mauve, the secondary accent, so they never read as trim edges. Fade lengths in the music track (4 s in, 9.5 s out) are long enough to see at Fit zoom.',
+        'Playhead is text, not an accent, so it never competes with the In/Out handles.',
+        'Header is the Wayland drag region; buttons opt out. Close lives in the header; there are no window decorations.',
+      ],
+      assumptionsB:[
+        'Auto de-click snaps on the summed L+R signal and shows how far it moved (−2.1 ms in 1c). The dashed line is where I was pressed.',
+        '“Source” is a stream copy only when fades, gain, normalize and de-click are all off. Any processing re-encodes to the same codec at a matching quality; lossless stays lossless.',
+        'Quality tiers resolve per format: Original = source bitrate (or bit depth), High and Small step down. The bitrate under each tier is what gets written.',
+        'Monitor volume affects playback only and is labelled so it is never mistaken for export gain.',
+        'KeyBar items carry a priority (1–5) and drop as the window narrows: ≥1360 px shows all, 1280 px drops priority 5, 640 px keeps only priority 1. “? Shortcuts” is pinned right and never drops.',
+        'Timecodes are m:ss.mmm with unpadded minutes, always in JetBrains Mono.',
+      ],
+      tokenRows:[
+        S('Backgrounds & controls'),
+        H('Stage · dialogs','base','#1e1e2e','#eff1f5','Waveform stage, dialogs, overview strip ground'),
+        H('Panels','mantle','#181825','#e6e9ef','Sidebar, ruler band, overview + transport rows, tooltips'),
+        H('Frame','crust','#11111b','#dce0e8','Header (drag region), KeyBar, error detail well'),
+        H('Control fill','surface0','#313244','#ccd0da','Time fields, kbd, skeleton lanes, meter off'),
+        H('Control edge','surface1','#45475a','#bcc0cc','Toolbar separators, slider track, lane centre line, shadow edge'),
+        H('Control strong','surface2','#585b70','#acb0be','Drop-zone dash'),
+        H('Rules','overlay0','#6c7086','#9ca0b0','1px rules at 60%, fading 48px at each end; ruler ticks',0.6),
+        S('Type'),
+        H('Text','text','#cdd6f4','#4c4f69','Primary text, timecodes'),
+        H('Text secondary','subtext1','#bac2de','#5c5f77','Labels, toolbar icons'),
+        H('Text muted','subtext0','#a6adc8','#6c6f85','Section heads, ruler labels, KeyBar labels'),
+        H('Text faint','overlay1','#7f849c','#8c8fa1','Units, format list, off-toggle knob'),
+        S('Accents & states'),
+        H('Accent','lavender','#b4befe','#7287fd','Handles, kept-region edges, focus ring, primary outline'),
+        H('Secondary accent','mauve','#cba6f7','#8839ef','Fade curves, fade handles'),
+        H('Error · clip','red','#f38ba8','#d20f39','Clip marks, unreadable file, meter > −3 dBFS'),
+        H('Notice','peach','#fab387','#fe640b','Re-encode hint (icon + border; text stays text)'),
+        H('Caution','yellow','#f9e2af','#df8e1d','Meter −12 … −3 dBFS'),
+        H('OK','green','#a6e3a1','#40a02b','Zero-crossing snap, export done, stream copy, meter'),
+        S('Waveform roles'),
+        H('Wave fill','lavender','#b4befe','#7287fd','Kept region · peak layer 38%, RMS core 82%',0.82),
+        H('Wave fill · dimmed','overlay0 + wash','#6c7086','#9ca0b0','Outside In/Out · wash crust 52% (M) / base 58% (L)',0.7),
+        H('Peak / clip','red','#f38ba8','#d20f39','3px caps on columns ≥ −0.04 dBFS'),
+        H('Selection edge','lavender','#b4befe','#7287fd','2px handle lines + 2px ruler band'),
+        H('Selection glow','lavender 45%','#b4befe','#7287fd','10px blur on edges; 11% wash fading 40px into region',0.45),
+        H('Fade ramp shade','mauve 20%','#cba6f7','#8839ef','Area above the gain curve; 1.5px mauve curve',0.2),
+        H('Playhead','text','#cdd6f4','#4c4f69','2px line + 10px diamond head'),
+        H('Overview viewport','subtext0','#a6adc8','#6c6f85','1px rect, radius 6, text 7% fill'),
+        H('Zero-crossing','green','#a6e3a1','#40a02b','12px ring per lane at the snapped point'),
+        H('Scrim','crust 68% · subtext0 34%','#11111b','#6c6f85','Behind dialogs and the compact drawer',0.68,0.34),
+      ],
+      typeRows:[
+        {sample:'Drop an audio or video file',spec:'Inter 20 / 500',px:20,ff:'var(--font-ui)',ls:'-0.01em',tt:'none'},
+        {sample:'Exporting',spec:'Inter 17 / 500',px:17,ff:'var(--font-ui)',ls:'normal',tt:'none'},
+        {sample:'tidewater_master_v3.flac',spec:'Inter 13 / 500',px:13,ff:'var(--font-ui)',ls:'normal',tt:'none'},
+        {sample:'Fade in · Normalize',spec:'Inter 12–12.5 / 500',px:12.5,ff:'var(--font-ui)',ls:'normal',tt:'none'},
+        {sample:'Selection',spec:'Inter 10.5 caps +.09em',px:10.5,ff:'var(--font-ui)',ls:'.09em',tt:'uppercase'},
+        {sample:'1:01.204',spec:'JB Mono 14 · transport',px:14,ff:'var(--font-mono)',ls:'normal',tt:'none'},
+        {sample:'0:06.400',spec:'JB Mono 12.5 · fields',px:12.5,ff:'var(--font-mono)',ls:'normal',tt:'none'},
+        {sample:'IN 0:06.400 · 2:00',spec:'JB Mono 10–10.5 · flags, ruler, kbd',px:10.5,ff:'var(--font-mono)',ls:'normal',tt:'none'},
+      ],
+      sizeRows:[
+        {k:'Header (drag region)',v:'44'},{k:'Ruler',v:'24'},{k:'Lane height',v:'≈ 286 stereo · 572 mono (inset 16)'},
+        {k:'Handle',v:'2 line · 10×44 grip · 16 hit'},{k:'Fade handle',v:'12 ⌀'},{k:'Playhead',v:'2 line · 10 diamond'},
+        {k:'Overview',v:'52 row · 36 strip'},{k:'Transport',v:'46'},{k:'KeyBar',v:'28'},
+        {k:'Sidebar',v:'300 · drawer 284'},{k:'Controls · icon buttons',v:'28 · 30'},{k:'Icons',v:'18 toolbar · 14 elsewhere'},
+      ],
+      spaceRows:[3,6,8,11,17,22],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -9,3 +9,9 @@ RTK.md
 .agents
 result
 test.mp3
+
+design/**/*.webp
+design/**/*.png
+design/**/*.jpg
+design/project/.thumbnail
+
