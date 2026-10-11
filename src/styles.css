@@ -1,0 +1,188 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* Catppuccin Mocha by default, Latte when the system prefers light (design/project/woice-theme.css). */
+:root {
+  --ctp-rosewater: #f5e0dc;
+  --ctp-mauve: #cba6f7;
+  --ctp-red: #f38ba8;
+  --ctp-peach: #fab387;
+  --ctp-yellow: #f9e2af;
+  --ctp-green: #a6e3a1;
+  --ctp-lavender: #b4befe;
+  --ctp-text: #cdd6f4;
+  --ctp-subtext1: #bac2de;
+  --ctp-subtext0: #a6adc8;
+  --ctp-overlay2: #9399b2;
+  --ctp-overlay1: #7f849c;
+  --ctp-overlay0: #6c7086;
+  --ctp-surface2: #585b70;
+  --ctp-surface1: #45475a;
+  --ctp-surface0: #313244;
+  --ctp-base: #1e1e2e;
+  --ctp-mantle: #181825;
+  --ctp-crust: #11111b;
+  --dim: color-mix(in srgb, var(--ctp-crust) 52%, transparent);
+  --scrim: color-mix(in srgb, var(--ctp-crust) 68%, transparent);
+  --shade-ink: rgba(17, 17, 27, 0.6);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --ctp-rosewater: #dc8a78;
+    --ctp-mauve: #8839ef;
+    --ctp-red: #d20f39;
+    --ctp-peach: #fe640b;
+    --ctp-yellow: #df8e1d;
+    --ctp-green: #40a02b;
+    --ctp-lavender: #7287fd;
+    --ctp-text: #4c4f69;
+    --ctp-subtext1: #5c5f77;
+    --ctp-subtext0: #6c6f85;
+    --ctp-overlay2: #7c7f93;
+    --ctp-overlay1: #8c8fa1;
+    --ctp-overlay0: #9ca0b0;
+    --ctp-surface2: #acb0be;
+    --ctp-surface1: #bcc0cc;
+    --ctp-surface0: #ccd0da;
+    --ctp-base: #eff1f5;
+    --ctp-mantle: #e6e9ef;
+    --ctp-crust: #dce0e8;
+    --dim: color-mix(in srgb, var(--ctp-base) 58%, transparent);
+    --scrim: color-mix(in srgb, var(--ctp-subtext0) 34%, transparent);
+    --shade-ink: rgba(76, 79, 105, 0.18);
+    color-scheme: light;
+  }
+}
+
+/* Roles: chrome and waveform. Canvases read these through getComputedStyle. */
+:root {
+  --rule: color-mix(in srgb, var(--ctp-overlay0) 60%, transparent);
+  --wave-fill: var(--ctp-lavender);
+  --wave-dim: var(--ctp-overlay0);
+  --wave-peak: var(--ctp-red);
+  --sel-edge: var(--ctp-lavender);
+  --sel-glow: color-mix(in srgb, var(--ctp-lavender) 45%, transparent);
+  --sel-wash: color-mix(in srgb, var(--ctp-lavender) 11%, transparent);
+  --flag-bg: color-mix(in srgb, var(--ctp-lavender) 16%, var(--ctp-base));
+  --fade-line: var(--ctp-mauve);
+  --fade-shade: color-mix(in srgb, var(--ctp-mauve) 20%, transparent);
+  --playhead: var(--ctp-text);
+  --ov-viewport: var(--ctp-subtext0);
+  --ov-fill: color-mix(in srgb, var(--ctp-text) 7%, transparent);
+  --zc: var(--ctp-green);
+  --shadow-sm: 0 0 0 1px var(--ctp-surface0);
+  --shadow-md: 0 0 0 1px var(--ctp-surface1), 0 8px 24px var(--shade-ink);
+  --shadow-lg: 0 0 0 1px var(--ctp-surface1), 0 18px 48px var(--shade-ink);
+}
+
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-base: var(--ctp-base);
+  --color-mantle: var(--ctp-mantle);
+  --color-crust: var(--ctp-crust);
+  --color-surface0: var(--ctp-surface0);
+  --color-surface1: var(--ctp-surface1);
+  --color-surface2: var(--ctp-surface2);
+  --color-overlay0: var(--ctp-overlay0);
+  --color-overlay1: var(--ctp-overlay1);
+  --color-text: var(--ctp-text);
+  --color-subtext1: var(--ctp-subtext1);
+  --color-subtext0: var(--ctp-subtext0);
+  --color-lavender: var(--ctp-lavender);
+  --color-mauve: var(--ctp-mauve);
+  --color-red: var(--ctp-red);
+  --color-peach: var(--ctp-peach);
+  --color-yellow: var(--ctp-yellow);
+  --color-green: var(--ctp-green);
+  --color-rule: var(--rule);
+  --color-sel-wash: var(--sel-wash);
+  --color-sel-glow: var(--sel-glow);
+  --color-flag: var(--flag-bg);
+  --color-dim: var(--dim);
+  --color-scrim: var(--scrim);
+  --color-playhead: var(--playhead);
+  --color-zc: var(--zc);
+  --color-ov-viewport: var(--ov-viewport);
+  --color-ov-fill: var(--ov-fill);
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--ctp-base);
+  }
+  body {
+    color: var(--ctp-text);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.35;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  button {
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+  }
+  button:disabled {
+    cursor: default;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ctp-lavender);
+    outline-offset: 2px;
+  }
+  input {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+}
+
+@utility drag-region {
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+@utility no-drag {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+/* 1px rule fading out over 48px at each end. */
+@utility rule-x {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--rule) 48px,
+    var(--rule) calc(100% - 48px),
+    transparent
+  );
+}
+@utility rule-y {
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--rule) 48px,
+    var(--rule) calc(100% - 48px),
+    transparent
+  );
+}
+@utility section-head {
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ctp-subtext0);
+}

@@ -1,0 +1,27 @@
+#compdef woice
+
+_woice() {
+  local -a args
+  args=(
+    '(-h --help)'{-h,--help}'[print help]'
+    '(-V --version)'{-V,--version}'[print version]'
+    '(-o --output)'{-o+,--output=}'[preselect the output PATH]:path:_files'
+    '--format=[output format (overrides config)]:format:((source\:"keep the source codec (stream copy when unprocessed)" mp3\:"MP3" wav\:"WAV (PCM)" flac\:"FLAC" opus\:"Opus" m4a\:"M4A (AAC)"))'
+    '--quality=[export quality tier (overrides config)]:quality:((original\:"match the source" high\:"high quality" small\:"smaller file"))'
+    '--on-done=[what a successful export does next]:action:((exit\:"exit after exporting" stay\:"keep the editor open"))'
+    '(-v --verbose)'{-v,--verbose}'[verbose logging]'
+    '--completions=[print a shell completion script]:shell:((zsh\:"zsh completion script"))'
+    '1:audio:_woice_input'
+  )
+  _arguments -s -S $args
+}
+
+_woice_input() {
+  _files -g "*.(#i)(mp3|wav|flac|ogg|oga|opus|m4a|aac|aiff|aif|mp4|m4v|mkv|webm|mov)(-.)"
+}
+
+if [[ $zsh_eval_context[-1] == loadautofunc ]]; then
+  _woice "$@"
+else
+  compdef _woice woice
+fi
